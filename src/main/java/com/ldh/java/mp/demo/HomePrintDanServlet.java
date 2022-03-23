@@ -17,23 +17,33 @@ public class HomePrintDanServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 
 		String inputedDan = request.getParameter("dan");
-
 		if (inputedDan == null) {
 			inputedDan = "1";
 		}
 
 		String inputedLimit = request.getParameter("limit");
-
 		if (inputedLimit == null) {
 			inputedLimit = "9";
 		}
 
 		int dan = Integer.parseInt(inputedDan);
 		int limit = Integer.parseInt(inputedLimit);
-		response.getWriter().append(String.format("%d단<br />", dan));
+		String color = request.getParameter("color");
+		if (color == null) {
+			color = "";
+		}
+
+		String bgc = request.getParameter("bgc");
+		if (bgc == null) {
+			bgc = "";
+		}
+
+		response.getWriter()
+				.append(String.format("<div style=\"color: %s; background-color: %s;\">%d단</div><br />", color, bgc, dan));
 
 		for (int i = 1; i <= limit; i++) {
-			response.getWriter().append(String.format("%d * %d = %d<br />", dan, i, dan * i));
+			response.getWriter().append(String.format(
+					"<div style=\"color: %s; background-color: %s;\">%d * %d = %d</div>", color, bgc, dan, i, dan * i));
 
 		}
 	}
