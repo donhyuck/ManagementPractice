@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-int dan = 8;
+int dan = Integer.parseInt(request.getParameter("dan"));
+int limit = Integer.parseInt(request.getParameter("limit"));
+String color = request.getParameter("color");
 %>
 <!DOCTYPE html>
 <html>
@@ -10,14 +12,13 @@ int dan = 8;
 <title>구구단 출력</title>
 </head>
 <body>
-<!-- jsp에서 자바문법 사용 -->
-	<div>==<%out.print(dan);%>단==</div>
-	<div>==<%=dan%>단==</div>
+	<!-- jsp에서 자바문법 사용 -->
+	<div style="color : <%=color%>">==<%=dan%>단 ==</div>
 
-	<%	for (int i = 1; i <= 9; i++) {	%>
-	<div>
-	<%=dan %> * <%=i %> = <%=dan*i %>
-	</div>
-	<%	}	%>
+	<%	for (int i = 1; i <= limit; i++) {	%>
+	<div style="color : <%=color%>">
+		<%=dan%> * <%=i%> = <%=dan * i%>
+	</div><%}%>
+	
 </body>
 </html>
