@@ -22,7 +22,19 @@ public class ArticleListServlet extends HttpServlet {
 		String user = "root";
 		String password = "";
 
-		// Connection
+		// Connection 드라이버 활성화
+		String driverName = "com.mysql.cj.jdbc.Driver";
+
+		try {
+			Class.forName(driverName);
+			response.getWriter().append("DB");
+		} catch (ClassNotFoundException e) {
+			System.out.printf("[ClassNotFoundException 예외, %s]\n", e.getMessage());
+			response.getWriter().append("DB 드라이버 클래스 로딩 실패");
+			return;
+		}
+
+		// Connection / DB연결
 		Connection conn = null;
 
 		try {
