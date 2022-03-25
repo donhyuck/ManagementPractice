@@ -4,6 +4,7 @@
 int dan = Integer.parseInt(request.getParameter("dan"));
 int limit = Integer.parseInt(request.getParameter("limit"));
 String color = request.getParameter("color");
+String bgc = request.getParameter("bgc");
 %>
 <!DOCTYPE html>
 <html>
@@ -13,7 +14,7 @@ String color = request.getParameter("color");
 </head>
 <body>
 	<!-- jsp에서 자바문법 사용 -->
-	<div style="color : <%=color%>">==<%=dan%>단 ==</div>
+	<div style="color: <%=color%>; background-color : <%=bgc%>;">==<%=dan%>단 ==</div>
 
 	<%	for (int i = 1; i <= limit; i++) {	%>
 	<div style="color : <%=color%>">

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,23 +13,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ldh.java.Util.DBUtil;
+
 @WebServlet("/article/list")
 public class ArticleListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.getWriter().append("!!!");
+		// 한글 출력
+		response.setContentType("text/html; charset=UTF-8");
 
 		// 접속경로 및 인증
 		String url = "jdbc:mysql://localhost:3306/mp?serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeBehavior=convertToNull";
-		String user = "root";
-		String password = "";
+		String user = "sbsst";
+		String password = "sbs123414";
 
 		// Connection 드라이버 활성화
 		String driverName = "com.mysql.cj.jdbc.Driver";
 
 		try {
 			Class.forName(driverName);
-			response.getWriter().append("DB");
 		} catch (ClassNotFoundException e) {
 			System.out.printf("[ClassNotFoundException 예외, %s]\n", e.getMessage());
 			response.getWriter().append("DB 드라이버 클래스 로딩 실패");
@@ -39,6 +43,21 @@ public class ArticleListServlet extends HttpServlet {
 
 		try {
 			conn = DriverManager.getConnection(url, user, password);
+			DBUtil dbUtil = new DBUtil(request, response);
+
+			// 게시글 전체 목록 보기
+			String sql = "SELECT * FROM article ORDER BY id DESC";
+			List<Map<String, Object>> articleRows = dbUtil.selectRows(conn, sql);
+
+			for (int i = 0; i < articleRows.size(); i++) {
+				Map<String, Object> articleRow = articleRows.get(i);
+
+				int id = (int) articleRow.get("id");
+				String title = (String) articleRow.get("title");
+
+				response.getWriter().append(String.format("<div>%d번 %s</div>", id, title));
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
