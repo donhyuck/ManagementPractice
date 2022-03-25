@@ -46,17 +46,12 @@ public class ArticleListServlet extends HttpServlet {
 			DBUtil dbUtil = new DBUtil(request, response);
 
 			// 게시글 전체 목록 보기
-			String sql = "SELECT * FROM article ORDER BY id DESC";
+			String sql = "SELECT * FROM article";
+			
 			List<Map<String, Object>> articleRows = dbUtil.selectRows(conn, sql);
-
-			for (int i = 0; i < articleRows.size(); i++) {
-				Map<String, Object> articleRow = articleRows.get(i);
-
-				int id = (int) articleRow.get("id");
-				String title = (String) articleRow.get("title");
-
-				response.getWriter().append(String.format("<div>%d번 %s</div>", id, title));
-			}
+			request.setAttribute("articleRows", articleRows);
+			
+			request.getRequestDispatcher("/jsp/home/list.jsp").forward(request, response);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
