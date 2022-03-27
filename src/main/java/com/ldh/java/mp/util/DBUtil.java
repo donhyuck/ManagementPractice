@@ -1,4 +1,4 @@
-package com.ldh.java.Util;
+package com.ldh.java.mp.util;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

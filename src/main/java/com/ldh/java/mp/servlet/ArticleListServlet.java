@@ -1,9 +1,10 @@
-package com.ldh.java.mp;
+package com.ldh.java.mp.servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -12,10 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ldh.java.Util.DBUtil;
+import com.ldh.java.mp.util.DBUtil;
 
-@WebServlet("/article/detail")
-public class ArticleDetailServlet extends HttpServlet {
+@WebServlet("/article/list")
+public class ArticleListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -44,16 +45,13 @@ public class ArticleDetailServlet extends HttpServlet {
 		try {
 			conn = DriverManager.getConnection(url, user, password);
 
-			// 원하는 게시글로 이동하기 위해서는 이에 해당하는 번호를 받아야한다.
-			int id = Integer.parseInt(request.getParameter("id"));
+			// 게시글 전체 목록 보기
+			String sql = "SELECT * FROM article ORDER BY id DESC";
 
-			// 게시글 상세 보기
-			String sql = String.format("SELECT * FROM article WHERE id = %d", id);
+			List<Map<String, Object>> articleRows = DBUtil.selectRows(conn, sql);
+			request.setAttribute("articleRows", articleRows);
 
-			Map<String, Object> articleRow = DBUtil.selectRow(conn, sql);
-			request.setAttribute("articleRow", articleRow);
-
-			request.getRequestDispatcher("/jsp/home/detail.jsp").forward(request, response);
+			request.getRequestDispatcher("/jsp/home/list.jsp").forward(request, response);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
