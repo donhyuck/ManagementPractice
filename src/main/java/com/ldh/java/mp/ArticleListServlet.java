@@ -44,12 +44,11 @@ public class ArticleListServlet extends HttpServlet {
 
 		try {
 			conn = DriverManager.getConnection(url, user, password);
-			DBUtil dbUtil = new DBUtil(request, response);
 
 			// 게시글 전체 목록 보기
 			String sql = "SELECT * FROM article ORDER BY id DESC";
 
-			List<Map<String, Object>> articleRows = dbUtil.selectRows(conn, sql);
+			List<Map<String, Object>> articleRows = DBUtil.selectRows(conn, sql);
 			request.setAttribute("articleRows", articleRows);
 
 			request.getRequestDispatcher("/jsp/home/list.jsp").forward(request, response);

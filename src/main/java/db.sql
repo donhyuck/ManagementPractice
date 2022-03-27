@@ -30,9 +30,18 @@ title='제목3',
 
 INSERT INTO article
 SET regDate=NOW(),
+title='제목4',
+`body`='내용4';
+
+INSERT INTO article
+SET regDate=NOW(),
 title= CONCAT('제목',RAND()),
 `body`= CONCAT('내용',RAND());
 
 # 게시글 전체 목록보기(번호정렬)
 SELECT * FROM article
 ORDER BY id DESC;
+
+# # 게시글 상세보기
+SELECT * FROM article
+WHERE id =1;
