@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ldh.java.mp.util.DBUtil;
+import com.ldh.java.mp.util.SecSql;
 
 @WebServlet("/article/list")
 public class ArticleListServlet extends HttpServlet {
@@ -46,7 +47,9 @@ public class ArticleListServlet extends HttpServlet {
 			conn = DriverManager.getConnection(url, user, password);
 
 			// 게시글 전체 목록 보기
-			String sql = "SELECT * FROM article ORDER BY id DESC";
+			SecSql sql = SecSql.from("SELECT *");
+			sql.append("FROM article");
+			sql.append("ORDER BY id DESC");
 
 			List<Map<String, Object>> articleRows = DBUtil.selectRows(conn, sql);
 			request.setAttribute("articleRows", articleRows);
