@@ -13,14 +13,32 @@ List<Map<String, Object>> articleRows = (List<Map<String, Object>>) request.getA
 </head>
 <body>
 	<h1>게시글 리스트</h1>
-	
-	<ul>
+		
+	<table border="1">
+	<colgroup>
+		<col width="80"/>
+		<col width="200"/>
+		<col />
+	</colgroup>
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>등록일</th>
+				<th>제목</th>
+				<th>삭제</th>
+			</tr>
+		</thead>
+		<tbody>
 		<% for(Map<String, Object> articleRow : articleRows) { %>
-			<a href="detail?id=<%= (int) articleRow.get("id") %>">
-				<li><%= (int) articleRow.get("id") %>번, <%= articleRow.get("regDate") %>, <%= articleRow.get("title") %>, <%= articleRow.get("body") %></li>
-			</a>
+			<tr>
+				<td><%= articleRow.get("id") %></td>
+				<td><%= articleRow.get("regDate") %></td>
+				<td><%= articleRow.get("title") %></td>
+				<td><a href="">삭제</a></td>
+			</tr>
+		</tbody>
 		<% } %>
-	</ul>
-	
+	</table>
+
 </body>
 </html>
