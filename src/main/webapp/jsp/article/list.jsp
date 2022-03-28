@@ -33,8 +33,8 @@ List<Map<String, Object>> articleRows = (List<Map<String, Object>>) request.getA
 			<tr>
 				<td><%= articleRow.get("id") %></td>
 				<td><%= articleRow.get("regDate") %></td>
-				<td><%= articleRow.get("title") %></td>
-				<td><a href="">삭제</a></td>
+				<td><a href="detail?id=<%=articleRow.get("id") %>"><%=articleRow.get("title") %></a></td>
+				<td><a href="doDelete?id=<%=articleRow.get("id") %>">삭제</a></td>
 			</tr>
 		</tbody>
 		<% } %>
