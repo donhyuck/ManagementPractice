@@ -46,14 +46,35 @@ public class ArticleListServlet extends HttpServlet {
 		try {
 			conn = DriverManager.getConnection(url, user, password);
 
+			// 페이지 처음
+			int page = 1;
+
+			if (request.getParameter("page") != null && request.getParameter("page").length() != 0) {
+
+				try {
+					page = Integer.parseInt(request.getParameter("page"));
+				} catch (NumberFormatException e) {
+				}
+			}
+
+			// 페이지 구분
+			int itemsInAPage = 20;
+			int limitFrom = (page - 1) * itemsInAPage;
+			int totalpage = 10;
+
 			// 게시글 전체 목록 보기
 			SecSql sql = SecSql.from("SELECT *");
 			sql.append("FROM article");
 			sql.append("ORDER BY id DESC");
+			sql.append("LIMIT ?, ?", limitFrom, itemsInAPage);
+
+			System.out.println(sql);
 
 			List<Map<String, Object>> articleRows = DBUtil.selectRows(conn, sql);
 			request.setAttribute("articleRows", articleRows);
-
+			request.setAttribute("page", page); // 현재 페이지를 알기위해 넘겨준다.
+			request.setAttribute("totalpage", totalpage);
+			
 			request.getRequestDispatcher("/jsp/article/list.jsp").forward(request, response);
 
 		} catch (SQLException e) {
