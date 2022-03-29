@@ -4,7 +4,7 @@
 <%@ page import="java.util.Map" %>
 <% 
 List<Map<String, Object>> articleRows = (List<Map<String, Object>>) request.getAttribute("articleRows");
-int cpage = (int) request.getAttribute("page");
+int cPage = (int) request.getAttribute("page");
 int totalpage = (int) request.getAttribute("totalpage");
 %> 
 <!DOCTYPE html>
@@ -45,14 +45,14 @@ int totalpage = (int) request.getAttribute("totalpage");
 	</table>
 	
 	<style type="text/css">
-.page > a.red {
-	color: red;
-}
-</style>
+		.page > a.red {
+			color: red;
+		}
+	</style>
 
 	<div class="page">
-		<% for(int i = 1;i<=10;i++) {%>
-			<a href="list?page=<%=i%>"><%=i%></a>
+		<% for (int i = 1; i <= totalpage; i++) {%>
+			<a class="<%=cPage == i ? "red" : ""%>" href="list?page=<%=i%>"><%=i%></a>
 		<% } %>
 	</div>
 

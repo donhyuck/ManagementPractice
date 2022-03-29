@@ -58,12 +58,18 @@ public class ArticleListServlet extends HttpServlet {
 			}
 
 			// 페이지 구분
-			int itemsInAPage = 20;
+			int itemsInAPage = 30;
 			int limitFrom = (page - 1) * itemsInAPage;
-			int totalpage = 10;
+
+			// 페이지에 따라 페이지 갯수 조절
+			SecSql sql = SecSql.from("SELECT COUNT(*) AS cnt");
+			sql.append("FROM article");
+
+			int totalCount = DBUtil.selectRowIntValue(conn, sql);
+			int totalpage = (int) Math.ceil((double) totalCount / itemsInAPage);
 
 			// 게시글 전체 목록 보기
-			SecSql sql = SecSql.from("SELECT *");
+			sql = SecSql.from("SELECT *");
 			sql.append("FROM article");
 			sql.append("ORDER BY id DESC");
 			sql.append("LIMIT ?, ?", limitFrom, itemsInAPage);
@@ -74,7 +80,7 @@ public class ArticleListServlet extends HttpServlet {
 			request.setAttribute("articleRows", articleRows);
 			request.setAttribute("page", page); // 현재 페이지를 알기위해 넘겨준다.
 			request.setAttribute("totalpage", totalpage);
-			
+
 			request.getRequestDispatcher("/jsp/article/list.jsp").forward(request, response);
 
 		} catch (SQLException e) {
