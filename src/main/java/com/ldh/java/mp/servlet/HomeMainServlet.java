@@ -1,4 +1,4 @@
-package com.ldh.java.mp.servlet.test;
+package com.ldh.java.mp.servlet;
 
 import java.io.IOException;
 
