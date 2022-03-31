@@ -67,3 +67,10 @@ WHERE id IN (290, 291);
 # 위와 동일
 DELETE FROM article
 WHERE id = 290 OR id = 291;
+
+# 게시글 수정하기
+UPDATE article
+SET regDate=NOW(),
+title='제목aa',
+`body`='내용bb'
+WHERE id = 285;

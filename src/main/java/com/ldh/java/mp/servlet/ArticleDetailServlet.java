@@ -24,6 +24,7 @@ public class ArticleDetailServlet extends HttpServlet {
 
 		// 한글 출력
 		response.setContentType("text/html; charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 
 		// 접속경로 및 인증
 		String url = "jdbc:mysql://localhost:3306/mp?serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeBehavior=convertToNull";

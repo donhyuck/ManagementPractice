@@ -24,6 +24,7 @@ public class ArticleModifyServlet extends HttpServlet {
 
 		// 한글 출력
 		response.setContentType("text/html; charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 
 		// 접속경로 및 인증
 		String url = "jdbc:mysql://localhost:3306/mp?serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeBehavior=convertToNull";
@@ -50,7 +51,7 @@ public class ArticleModifyServlet extends HttpServlet {
 			// 원하는 게시글로 이동하기 위해서는 이에 해당하는 번호를 받아야한다.
 			int id = Integer.parseInt(request.getParameter("id"));
 
-			// 게시글 수정하기
+			// 게시글 수정 페이지 보기
 			SecSql sql = SecSql.from("SELECT *");
 			sql.append("FROM article");
 			sql.append("WHERE id = ?", id);
