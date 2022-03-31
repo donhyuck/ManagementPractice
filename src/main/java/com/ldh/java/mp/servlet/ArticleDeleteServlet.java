@@ -16,6 +16,8 @@ import com.ldh.java.mp.util.SecSql;
 
 @WebServlet("/article/doDelete")
 public class ArticleDeleteServlet extends HttpServlet {
+
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -67,5 +69,11 @@ public class ArticleDeleteServlet extends HttpServlet {
 				}
 			}
 		}
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
 	}
 }

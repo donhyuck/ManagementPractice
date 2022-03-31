@@ -60,3 +60,10 @@ INSERT INTO article
 SET regDate=NOW(),
 title='제목1',
 `body`='내용1';
+
+# 여러개 삭제
+DELETE FROM article
+WHERE id IN (290, 291);
+# 위와 동일
+DELETE FROM article
+WHERE id = 290 OR id = 291;

@@ -15,7 +15,12 @@ int totalpage = (int) request.getAttribute("totalpage");
 </head>
 <body>
 	<h1>게시글 리스트</h1>
-		
+	
+	<div>
+		<a href="write">게시글 작성</a>
+	</div>
+	<hr />
+	
 	<table border="1">
 		<colgroup>
 			<col width="80"/>
