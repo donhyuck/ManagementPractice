@@ -74,3 +74,8 @@ SET regDate=NOW(),
 title='제목aa',
 `body`='내용bb'
 WHERE id = 285;
+
+#글 갯수 2배
+INSERT INTO article (regDate,title,`body`)
+SELECT NOW(), CONCAT('제목_',RAND()), CONCAT('내용_',RAND())
+FROM article;

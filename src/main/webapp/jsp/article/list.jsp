@@ -59,9 +59,32 @@ int totalpage = (int) request.getAttribute("totalpage");
 		}
 	</style>
 
+	<!--  목록의 페이지 노출 갯수 제한 -->
 	<div class="page">
-		<% for (int i = 1; i <= totalpage; i++) {%>
+		<% if (cPage > 1) { %>
+			<a href="list?page=1">◀</a>
+		<% } %>
+		
+		<% int pageMenuSize = 10;
+		
+		int from = cPage - pageMenuSize;
+		// 1페이지 이하 제거
+		if (from < 1) {
+			from = 1;
+		}
+			
+		int end = cPage + pageMenuSize;
+		// 최대 페이지 이상 제거
+		if (end > totalpage) {
+			end = totalpage;
+		} %>
+		
+		<% for (int i = from; i <= end; i++) {%>
 			<a class="<%=cPage == i ? "red" : ""%>" href="list?page=<%=i%>"><%=i%></a>
+		<% } %>
+		
+		<% if (cPage < totalpage) { %>
+			<a href="list?page=<%= totalpage %>">▶</a>
 		<% } %>
 	</div>
 
