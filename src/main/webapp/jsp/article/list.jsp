@@ -28,11 +28,13 @@ int totalpage = (int) request.getAttribute("totalpage");
 			<col />
 		</colgroup>
 		
+		<!-- 게시글 목록 영역 -->
 		<thead>
 			<tr>
 				<th>번호</th>
 				<th>등록일</th>
 				<th>제목</th>
+				<th>수정</th>
 				<th>삭제</th>
 			</tr>
 		</thead>
@@ -43,12 +45,14 @@ int totalpage = (int) request.getAttribute("totalpage");
 				<td><%= articleRow.get("id") %></td>
 				<td><%= articleRow.get("regDate") %></td>
 				<td><a href="detail?id=<%=articleRow.get("id") %>"><%=articleRow.get("title") %></a></td>
+				<td><a href="modify?id=<%=articleRow.get("id") %>">수정</a></td>
 				<td><a href="doDelete?id=<%=articleRow.get("id") %>">삭제</a></td>
 			</tr>
 		<% } %>	
 		</tbody>
 	</table>
 	
+	<!-- 게시글 목록 페이지 영역 -->
 	<style type="text/css">
 		.page > a.red {
 			color: red;
