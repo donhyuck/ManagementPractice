@@ -79,3 +79,23 @@ WHERE id = 285;
 INSERT INTO article (regDate,title,`body`)
 SELECT NOW(), CONCAT('제목_',RAND()), CONCAT('내용_',RAND())
 FROM article;
+
+# 회원테이블 삭제
+DROP TABLE `member`;
+
+# 회원 테이블 생성
+CREATE TABLE `member` (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    loginId CHAR(100) NOT NULL UNIQUE,
+    loginpw CHAR(100) NOT NULL,
+    `name` CHAR(100) NOT NULL
+);
+# 회원등록
+INSERT INTO `member`
+SET regDate=NOW(),
+loginId='test1',
+loginPw='test1',
+`name`='테스터1';
+
+SELECT * FROM `member`;
