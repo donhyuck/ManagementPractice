@@ -94,8 +94,8 @@ CREATE TABLE `member` (
 # 회원등록
 INSERT INTO `member`
 SET regDate=NOW(),
-loginId='test1',
-loginPw='test1',
-`name`='테스터1';
+loginId='test2',
+loginPw='test2',
+`name`='테스터2';
 
 SELECT * FROM `member`;

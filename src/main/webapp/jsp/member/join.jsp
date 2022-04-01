@@ -52,7 +52,7 @@
 	</script>
 
 	<form action="doJoin" method="post"
-		onsubmit="Join__submit(this); return false;">
+		onsubmit="JoinForm__submit(this); return false;">
 		<div>
 			아이디 : <input name="loginId" type="text" placeholder="아이디를 입력해주세요." />
 		</div>

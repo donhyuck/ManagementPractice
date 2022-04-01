@@ -48,8 +48,21 @@ public class MemberDoJoinServlet extends HttpServlet {
 			String loginPw = request.getParameter("loginPw");
 			String name = request.getParameter("name");
 
+			// 로그인 아이디 중복체크
+			SecSql sql = SecSql.from("SELECT COUNT(*) AS cnt ");
+			sql.append("FROM `member`");
+			sql.append("WHERE loginId = ?", loginId);
+
+			boolean isJoinableByLoginId = DBUtil.selectRowIntValue(conn, sql) == 0;
+
+			if (isJoinableByLoginId == false) {
+				response.getWriter().append(String
+						.format("<script> alert('%s (은)는 이미 사용중인 아이디 입니다.'); history.back(); </script>", loginId));
+				return;
+			}
+
 			// 회원가입하기
-			SecSql sql = SecSql.from("INSERT INTO `member`");
+			sql = SecSql.from("INSERT INTO `member`");
 			sql.append("SET regDate=NOW()");
 			sql.append(", `loginId` = ?", loginId);
 			sql.append(", `loginPw` = ?", loginPw);
