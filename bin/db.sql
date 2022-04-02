@@ -94,8 +94,13 @@ CREATE TABLE `member` (
 # 회원등록
 INSERT INTO `member`
 SET regDate=NOW(),
-loginId='test2',
-loginPw='test2',
-`name`='테스터2';
+loginId='test1',
+loginPw='test1',
+`name`='테스터1';
 
 SELECT * FROM `member`;
+
+# 로그인 아이디 중복체크
+SELECT COUNT(*) AS cnt
+FROM `member`
+WHERE loginId = "test1";

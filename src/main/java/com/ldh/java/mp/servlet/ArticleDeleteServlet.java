@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ldh.java.mp.Config;
+import com.ldh.java.mp.exception.SQLErrorException;
 import com.ldh.java.mp.util.DBUtil;
 import com.ldh.java.mp.util.SecSql;
 
@@ -57,6 +58,8 @@ public class ArticleDeleteServlet extends HttpServlet {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (SQLErrorException e) {
+			e.getOrigin().printStackTrace();
 		} finally {
 			if (conn != null) {
 				try {
