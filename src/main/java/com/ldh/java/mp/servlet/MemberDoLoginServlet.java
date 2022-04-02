@@ -59,20 +59,16 @@ public class MemberDoLoginServlet extends HttpServlet {
 
 			if (memberRow.isEmpty()) {
 				response.getWriter().append(
-						String.format("<script> alert('%s (은)는 존재하지 않는 회원입니다.'); history.back(); </script>", loginId));
-				return;
-			}
-			
-			// 로그인 패스워드 에러
-			// Cannot invoke "String.equals(Object)" because the return value of "java.util.Map.get(Object)" is null
-			// 회원 객체의 패스워드를 가져오지 못하고 null값이 됨
-			if (((String) memberRow.get("loginPw")).equals(loginPw) == false) {
-				response.getWriter().append(
-						String.format("<script> alert('비밀번호가 일치하지 않습니다.'); history.back(); </script>", loginId));
+						String.format("<script> alert('%s(은)는 등록되지 않은 회원입니다.'); history.back(); </script>", loginId));
 				return;
 			}
 
-			HttpSession session =  request.getSession();
+			if (((String) memberRow.get("loginPw")).equals(loginPw) == false) {
+				response.getWriter().append("<script> alert('비밀번호가 일치하지 않습니다.'); history.back(); </script>");
+				return;
+			}
+
+			HttpSession session = request.getSession();
 			session.setAttribute("loginedMemberId", memberRow.get("id"));
 
 			response.getWriter()
