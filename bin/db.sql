@@ -1,10 +1,12 @@
+# 데이터 베이스 생성
 DROP DATABASE IF EXISTS mp;
 CREATE DATABASE mp;
 USE mp;
 
+# 게시글 테이블 삭제
 DROP TABLE article;
 
-# article 테이블 생성
+# 게시글 테이블 생성
 CREATE TABLE article (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
@@ -15,6 +17,7 @@ CREATE TABLE article (
 # 게시글 목록보기
 SELECT * FROM article;
 
+# 게시글 추가하기
 INSERT INTO article
 SET regDate=NOW(),
 title='제목1',
@@ -49,11 +52,11 @@ ORDER BY id DESC;
 SELECT * FROM article
 WHERE id =1;
 
-# 페이지
+# 페이지 (0번째(가장최신)부터 열개)
 SELECT *
 FROM article
 ORDER BY id DESC
-LIMIT 5, 20;
+LIMIT 0, 10;
 
 # 게시글 등록하기
 INSERT INTO article
@@ -64,6 +67,7 @@ title='제목1',
 # 여러개 삭제
 DELETE FROM article
 WHERE id IN (290, 291);
+
 # 위와 동일
 DELETE FROM article
 WHERE id = 290 OR id = 291;
@@ -91,6 +95,7 @@ CREATE TABLE `member` (
     loginpw CHAR(100) NOT NULL,
     `name` CHAR(100) NOT NULL
 );
+
 # 회원등록
 INSERT INTO `member`
 SET regDate=NOW(),
