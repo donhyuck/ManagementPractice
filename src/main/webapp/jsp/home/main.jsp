@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+boolean isLogined = (boolean) request.getAttribute("isLogined");
+int loginedMemberId = (int) request.getAttribute("loginedMemberId");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +12,20 @@
 </head>
 <body>
 	<h1>메인페이지</h1>
+	
+	<!-- 회원 영역 -->
+	<% if (isLogined) { %>
+		<div>
+		<%= loginedMemberId %>번 회원님 환영합니다. <br />
+			<a href="../member/doLogout">로그아웃</a>
+		</div>
+	<% } %>
+	
+	<% if (!isLogined) { %>
+		<div>
+			<a href="../member/login">로그인</a>
+		</div>
+	<% } %>
 	
 	<div>
 		<a href="../article/list">게시글 목록 이동</a>

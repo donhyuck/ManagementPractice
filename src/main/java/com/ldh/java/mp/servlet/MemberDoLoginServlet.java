@@ -68,6 +68,7 @@ public class MemberDoLoginServlet extends HttpServlet {
 				return;
 			}
 
+			// 로그인 정보를 세션으로 관리
 			HttpSession session = request.getSession();
 			session.setAttribute("loginedMemberId", memberRow.get("id"));
 
