@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.ldh.java.mp.Config;
 import com.ldh.java.mp.exception.SQLErrorException;
@@ -44,6 +45,27 @@ public class ArticleDetailServlet extends HttpServlet {
 
 		try {
 			conn = DriverManager.getConnection(Config.getDBUrl(), Config.getDBId(), Config.getDBPw());
+
+			// 로그인 상태 확인
+			HttpSession session = request.getSession();
+
+			boolean isLogined = false;
+			int loginedMemberId = -1;
+			Map<String, Object> loginedMemberRow = null;
+
+			if (session.getAttribute("loginedMemberId") != null) {
+				loginedMemberId = (int) session.getAttribute("loginedMemberId");
+				isLogined = true;
+
+				SecSql sql = SecSql.from("SELECT * FROM `member`");
+				sql.append("WHERE id = ?", loginedMemberId);
+
+				loginedMemberRow = DBUtil.selectRow(conn, sql);
+			}
+
+			request.setAttribute("isLogined", isLogined);
+			request.setAttribute("loginedMemberId", loginedMemberId);
+			request.setAttribute("loginedMemberRow", loginedMemberRow);
 
 			// 원하는 게시글로 이동하기 위해서는 이에 해당하는 번호를 받아야한다.
 			int id = Integer.parseInt(request.getParameter("id"));
