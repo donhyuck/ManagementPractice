@@ -1,6 +1,10 @@
 package com.ldh.java.mp.servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ldh.java.mp.Config;
+import com.ldh.java.mp.exception.SQLErrorException;
+import com.ldh.java.mp.util.DBUtil;
+import com.ldh.java.mp.util.SecSql;
+
 @WebServlet("/home/main")
 public class HomeMainServlet extends HttpServlet {
 
@@ -16,20 +25,63 @@ public class HomeMainServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
+		// 한글 출력
+		response.setContentType("text/html; charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 
-		boolean isLogined = false;
-		int loginedMemberId = -1;
+		// Connection 드라이버 활성화
+		String driverName = Config.getDBDriverClassName();
 
-		if (session.getAttribute("loginedMemberId") != null) {
-			loginedMemberId = (int) session.getAttribute("loginedMemberId");
-			isLogined = true;
+		try {
+			Class.forName(driverName);
+		} catch (ClassNotFoundException e) {
+			System.out.printf("[ClassNotFoundException 예외, %s]\n", e.getMessage());
+			response.getWriter().append("DB 드라이버 클래스 로딩 실패");
+			return;
 		}
 
-		request.setAttribute("isLogined", isLogined);
-		request.setAttribute("loginedMemberId", loginedMemberId);
+		// Connection / DB연결
+		Connection conn = null;
 
-		request.getRequestDispatcher("/jsp/home/main.jsp").forward(request, response);
+		try {
+			conn = DriverManager.getConnection(Config.getDBUrl(), Config.getDBId(), Config.getDBPw());
+
+			// 로그인 상태 확인
+			HttpSession session = request.getSession();
+
+			boolean isLogined = false;
+			int loginedMemberId = -1;
+			Map<String, Object> loginedMemberRow = null;
+
+			if (session.getAttribute("loginedMemberId") != null) {
+				loginedMemberId = (int) session.getAttribute("loginedMemberId");
+				isLogined = true;
+
+				SecSql sql = SecSql.from("SELECT * FROM `member`");
+				sql.append("WHERE id = ?", loginedMemberId);
+
+				loginedMemberRow = DBUtil.selectRow(conn, sql);
+			}
+
+			request.setAttribute("isLogined", isLogined);
+			request.setAttribute("loginedMemberId", loginedMemberId);
+			request.setAttribute("loginedMemberRow", loginedMemberRow);
+
+			request.getRequestDispatcher("/jsp/home/main.jsp").forward(request, response);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (SQLErrorException e) {
+			e.getOrigin().printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	@Override

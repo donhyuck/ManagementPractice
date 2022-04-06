@@ -112,6 +112,7 @@ WHERE loginId = "test1";
 
 # 게시글 테이블에 memberId 칼럼 추가
 ALTER TABLE `article` ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER regDate;
+
 SELECT * FROM article;
 
 # 기존 글의 작성자는 2번 회원으로 설정
