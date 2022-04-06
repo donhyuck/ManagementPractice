@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ldh.java.mp.Config;
+import com.ldh.java.mp.controller.ArticleController;
 import com.ldh.java.mp.exception.SQLErrorException;
 
 @WebServlet("/menu/*")
@@ -41,6 +42,25 @@ public class DispatcherServlet extends HttpServlet {
 
 		try {
 			conn = DriverManager.getConnection(Config.getDBUrl(), Config.getDBId(), Config.getDBPw());
+
+			// URI
+			// http://localhost:8082/MP/menu/[]/[]
+			String requestUri = request.getRequestURI();
+			String[] requestUriBits = requestUri.split("/");
+
+			if (requestUriBits.length < 5) {
+				response.getWriter().append("부적절한 요청입니다.");
+				return;
+			}
+
+			// 컨트롤러
+			String controllerName = requestUriBits[3];
+			String actionMethodName = requestUriBits[4];
+
+			if (controllerName.equals("article")) {
+				ArticleController controller = new ArticleController(request, response, conn);
+
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
