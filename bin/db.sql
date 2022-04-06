@@ -99,9 +99,9 @@ CREATE TABLE `member` (
 # 회원등록
 INSERT INTO `member`
 SET regDate=NOW(),
-loginId='test1',
-loginPw='test1',
-`name`='테스터1';
+loginId='test2',
+loginPw='test2',
+`name`='이몽룡';
 
 SELECT * FROM `member`;
 
@@ -109,3 +109,12 @@ SELECT * FROM `member`;
 SELECT COUNT(*) AS cnt
 FROM `member`
 WHERE loginId = "test1";
+
+# 게시글 테이블에 memberId 칼럼 추가
+ALTER TABLE `article` ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER regDate;
+SELECT * FROM article;
+
+# 기존 글의 작성자는 2번 회원으로 설정
+UPDATE article
+SET memberId = 2
+WHERE memberId = 0;

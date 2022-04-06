@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.ldh.java.mp.Config;
 import com.ldh.java.mp.exception.SQLErrorException;
@@ -26,6 +27,15 @@ public class ArticleDoWriteServlet extends HttpServlet {
 		// 한글 출력
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
+
+		// 로그인 확인
+		HttpSession session = request.getSession();
+
+		if (session.getAttribute("loginedMemberId") == null) {
+			response.getWriter().append(
+					String.format("<<script>alert('로그인 후 이용해주세요.'); location.replace('../member/login'); </script>"));
+			return;
+		}
 
 		// Connection 드라이버 활성화
 		String driverName = Config.getDBDriverClassName();
@@ -48,9 +58,13 @@ public class ArticleDoWriteServlet extends HttpServlet {
 			String title = request.getParameter("title");
 			String body = request.getParameter("body");
 
+			// 세션에서 로그인 회원번호 가져오기
+			int loginedMemberId = (int) session.getAttribute("loginedMemberId");
+
 			// 게시글 등록하기
 			SecSql sql = SecSql.from("INSERT INTO `article`");
 			sql.append("SET regDate=NOW()");
+			sql.append(", `memberId` = ?", loginedMemberId);
 			sql.append(", `title` = ?", title);
 			sql.append(", `body` = ?", body);
 
