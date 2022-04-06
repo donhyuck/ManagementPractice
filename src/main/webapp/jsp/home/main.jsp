@@ -2,11 +2,7 @@
 <%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-boolean isLogined = (boolean) request.getAttribute("isLogined");
-int loginedMemberId = (int) request.getAttribute("loginedMemberId");
-Map<String, Object> loginedMemberRow = (Map<String, Object>) request.getAttribute("loginedMemberRow");
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,23 +11,8 @@ Map<String, Object> loginedMemberRow = (Map<String, Object>) request.getAttribut
 </head>
 <body>
 	<h1>메인페이지</h1>
-	
-	<!-- 회원 영역 -->
-	<% if (isLogined) { %>
-		<div>
-		<%= loginedMemberRow.get("name") %>님 환영합니다. <br />
-			<a href="../member/doLogout">로그아웃</a>
-		</div>
-	<% } %>
-	
-	<% if (!isLogined) { %>
-		<div>
-			<a href="../member/login">로그인</a>
-		</div>
-	<% } %>
-	
-	<div>
-		<a href="../article/list">게시글 목록 이동</a>
-	</div>
+
+	<%@ include file="../part/topbar.jspf" %>
+
 </body>
 </html>
