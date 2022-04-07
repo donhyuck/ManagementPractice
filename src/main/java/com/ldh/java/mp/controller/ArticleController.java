@@ -53,9 +53,9 @@ public class ArticleController {
 
 		// 원하는 게시글로 이동하기 위해서는 이에 해당하는 번호를 받아야한다.
 		int id = Integer.parseInt(request.getParameter("id"));
-		
-		Map<String, Object> articleRow = articleService.getForPrintArticle(id);
-		request.setAttribute("articleRow", articleRow);
+
+		Article article = articleService.getForPrintArticle(id);
+		request.setAttribute("article", article);
 
 		request.getRequestDispatcher("/jsp/article/detail.jsp").forward(request, response);
 	}

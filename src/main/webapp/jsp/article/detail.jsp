@@ -5,7 +5,7 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="com.ldh.java.mp.dto.Article" %>
 <% 
-Map<String, Object> articleRow = (Map<String, Object>) request.getAttribute("articleRow");
+Article article = (Article) request.getAttribute("article");
 %>    
 <!DOCTYPE html>
 <html>
@@ -18,10 +18,10 @@ Map<String, Object> articleRow = (Map<String, Object>) request.getAttribute("art
 	
 	<%@ include file="../part/topbar.jspf" %>
 	
-	<div>번호 : <%= (int) articleRow.get("id") %></div>
-	<div>날짜 : <%= (LocalDateTime) articleRow.get("regDate") %></div>
-	<div>제목 : <%= (String) articleRow.get("title") %></div>
-	<div>내용 : <%= (String) articleRow.get("body") %></div>
+	<div>번호 : <%= article.id %></div>
+	<div>날짜 : <%= article.regDate %></div>
+	<div>제목 : <%= article.title %></div>
+	<div>내용 : <%= article.body %></div>
 	
 	<div>
 		<a href="/MP/menu/article/modify?id=${ param.id }">수정</a>

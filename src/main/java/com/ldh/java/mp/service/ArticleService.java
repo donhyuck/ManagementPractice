@@ -44,7 +44,7 @@ public class ArticleService {
 		return articles;
 	}
 
-	public Map<String, Object> getForPrintArticle(int id) {
+	public Article getForPrintArticle(int id) {
 		return articleDao.getArticle(id);
 	}
 

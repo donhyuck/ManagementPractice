@@ -47,7 +47,7 @@ public class ArticleDao {
 	}
 
 	// 특정 게시글 상세보기
-	public Map<String, Object> getArticle(int id) {
+	public Article getArticle(int id) {
 
 		// 게시글 상세 보기
 		SecSql sql = SecSql.from("SELECT *");
@@ -55,8 +55,10 @@ public class ArticleDao {
 		sql.append("WHERE id = ?", id);
 
 		Map<String, Object> articleRow = DBUtil.selectRow(conn, sql);
-		
-		return articleRow;
+
+		Article article = new Article(articleRow);
+
+		return article;
 	}
 
 }
