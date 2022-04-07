@@ -3,15 +3,13 @@ package com.ldh.java.mp.controller;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ldh.java.mp.dto.Article;
 import com.ldh.java.mp.service.ArticleService;
-import com.ldh.java.mp.util.DBUtil;
-import com.ldh.java.mp.util.SecSql;
 
 public class ArticleController {
 
@@ -37,11 +35,11 @@ public class ArticleController {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
 
-		// 페이지 설정과 각 페이지에 해당하는 게시글 목록 가져오기 
+		// 페이지 설정과 각 페이지에 해당하는 게시글 목록 가져오기
 		int totalpage = articleService.getForPrintListTotalPage();
-		List<Map<String, Object>> articleRows = articleService.getForPrintArticleRows(page);
+		List<Article> articles = articleService.getForPrintArticles(page);
 
-		request.setAttribute("articleRows", articleRows);
+		request.setAttribute("articles", articles);
 		request.setAttribute("page", page); // 현재 페이지를 알기위해 넘겨준다.
 		request.setAttribute("totalpage", totalpage);
 

@@ -1,9 +1,11 @@
 package com.ldh.java.mp.dao;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.ldh.java.mp.dto.Article;
 import com.ldh.java.mp.util.DBUtil;
 import com.ldh.java.mp.util.SecSql;
 
@@ -26,7 +28,7 @@ public class ArticleDao {
 	}
 
 	// 게시글 전체 목록 보기
-	public List<Map<String, Object>> getArticleRows(int limitFrom, int itemsInAPage) {
+	public List<Article> getArticles(int limitFrom, int itemsInAPage) {
 
 		SecSql sql = SecSql.from("SELECT *");
 		sql.append("FROM article");
@@ -35,7 +37,13 @@ public class ArticleDao {
 
 		List<Map<String, Object>> articleRows = DBUtil.selectRows(conn, sql);
 
-		return articleRows;
+		List<Article> articles = new ArrayList<>();
+
+		for (Map<String, Object> articleRow : articleRows) {
+			articles.add(new Article(articleRow));
+		}
+		
+		return articles;
 	}
 
 }

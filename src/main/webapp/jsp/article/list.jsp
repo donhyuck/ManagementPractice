@@ -2,8 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
+<%@ page import="com.ldh.java.mp.dto.Article" %>
 <% 
-List<Map<String, Object>> articleRows = (List<Map<String, Object>>) request.getAttribute("articleRows");
+List<Article> articles = (List<Article>) request.getAttribute("articles");
 int cPage = (int) request.getAttribute("page");
 int totalpage = (int) request.getAttribute("totalpage");
 %> 
@@ -42,13 +43,13 @@ int totalpage = (int) request.getAttribute("totalpage");
 		</thead>
 		
 		<tbody>
-		<% for(Map<String, Object> articleRow : articleRows) { %>
+		<% for(Article article : articles) { %>
 			<tr>
-				<td><%= articleRow.get("id") %></td>
-				<td><%= articleRow.get("regDate") %></td>
-				<td><a href="detail?id=<%=articleRow.get("id") %>"><%=articleRow.get("title") %></a></td>
-				<td><a href="modify?id=<%=articleRow.get("id") %>">수정</a></td>
-				<td><a href="doDelete?id=<%=articleRow.get("id") %>">삭제</a></td>
+				<td><%= article.id %></td>
+				<td><%= article.regDate %></td>
+				<td><a href="detail?id=<%= article.id %>"><%= article.title %></a></td>
+				<td><a href="modify?id=<%= article.id %>">수정</a></td>
+				<td><a href="doDelete?id=<%= article.id %>">삭제</a></td>
 			</tr>
 		<% } %>	
 		</tbody>

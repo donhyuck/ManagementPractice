@@ -2,11 +2,9 @@ package com.ldh.java.mp.service;
 
 import java.sql.Connection;
 import java.util.List;
-import java.util.Map;
 
 import com.ldh.java.mp.dao.ArticleDao;
-import com.ldh.java.mp.util.DBUtil;
-import com.ldh.java.mp.util.SecSql;
+import com.ldh.java.mp.dto.Article;
 
 public class ArticleService {
 
@@ -34,15 +32,15 @@ public class ArticleService {
 		return totalpage;
 	}
 
-	public List<Map<String, Object>> getForPrintArticleRows(int page) {
+	public List<Article> getForPrintArticles(int page) {
 
 		// 페이지 구분
 		int itemsInAPage = getItemsInAPage();
 		int limitFrom = (page - 1) * itemsInAPage;
 
-		List<Map<String, Object>> articleRows = articleDao.getArticleRows(limitFrom, itemsInAPage);
+		List<Article> articles = articleDao.getArticles(limitFrom, itemsInAPage);
 
-		return articleRows;
+		return articles;
 	}
 
 }
