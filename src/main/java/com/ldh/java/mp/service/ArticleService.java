@@ -4,15 +4,18 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
+import com.ldh.java.mp.dao.ArticleDao;
 import com.ldh.java.mp.util.DBUtil;
 import com.ldh.java.mp.util.SecSql;
 
 public class ArticleService {
 
 	private Connection conn;
+	private ArticleDao articleDao;
 
 	public ArticleService(Connection conn) {
 		this.conn = conn;
+		this.articleDao = new ArticleDao(conn);
 	}
 
 	public int getItemsInAPage() {
@@ -25,10 +28,7 @@ public class ArticleService {
 		int itemsInAPage = getItemsInAPage();
 
 		// 페이지에 따라 페이지 갯수 조절
-		SecSql sql = SecSql.from("SELECT COUNT(*) AS cnt");
-		sql.append("FROM article");
-
-		int totalCount = DBUtil.selectRowIntValue(conn, sql);
+		int totalCount = articleDao.getTotalCount();
 		int totalpage = (int) Math.ceil((double) totalCount / itemsInAPage);
 
 		return totalpage;
@@ -40,13 +40,7 @@ public class ArticleService {
 		int itemsInAPage = getItemsInAPage();
 		int limitFrom = (page - 1) * itemsInAPage;
 
-		// 게시글 전체 목록 보기
-		SecSql sql = SecSql.from("SELECT *");
-		sql.append("FROM article");
-		sql.append("ORDER BY id DESC");
-		sql.append("LIMIT ?, ?", limitFrom, itemsInAPage);
-
-		List<Map<String, Object>> articleRows = DBUtil.selectRows(conn, sql);
+		List<Map<String, Object>> articleRows = articleDao.getArticleRows(limitFrom, itemsInAPage);
 
 		return articleRows;
 	}
