@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ldh.java.mp.service.ArticleService;
 import com.ldh.java.mp.util.DBUtil;
 import com.ldh.java.mp.util.SecSql;
 
@@ -17,11 +18,14 @@ public class ArticleController {
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	private Connection conn;
+	private ArticleService articleService;
 
 	public ArticleController(HttpServletRequest request, HttpServletResponse response, Connection conn) {
 		this.request = request;
 		this.response = response;
 		this.conn = conn;
+
+		articleService = new ArticleService(conn);
 	}
 
 	public void actionList() throws ServletException, IOException {
@@ -30,33 +34,13 @@ public class ArticleController {
 		int page = 1;
 
 		if (request.getParameter("page") != null && request.getParameter("page").length() != 0) {
-
-			try {
-				page = Integer.parseInt(request.getParameter("page"));
-			} catch (NumberFormatException e) {
-			}
+			page = Integer.parseInt(request.getParameter("page"));
 		}
 
-		// 페이지 구분
-		int itemsInAPage = 15;
-		int limitFrom = (page - 1) * itemsInAPage;
+		// 페이지 설정과 각 페이지에 해당하는 게시글 목록 가져오기 
+		int totalpage = articleService.getForPrintListTotalPage();
+		List<Map<String, Object>> articleRows = articleService.getForPrintArticleRows(page);
 
-		// 페이지에 따라 페이지 갯수 조절
-		SecSql sql = SecSql.from("SELECT COUNT(*) AS cnt");
-		sql.append("FROM article");
-
-		int totalCount = DBUtil.selectRowIntValue(conn, sql);
-		int totalpage = (int) Math.ceil((double) totalCount / itemsInAPage);
-
-		// 게시글 전체 목록 보기
-		sql = SecSql.from("SELECT *");
-		sql.append("FROM article");
-		sql.append("ORDER BY id DESC");
-		sql.append("LIMIT ?, ?", limitFrom, itemsInAPage);
-
-		System.out.println(sql);
-
-		List<Map<String, Object>> articleRows = DBUtil.selectRows(conn, sql);
 		request.setAttribute("articleRows", articleRows);
 		request.setAttribute("page", page); // 현재 페이지를 알기위해 넘겨준다.
 		request.setAttribute("totalpage", totalpage);
