@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import com.ldh.java.mp.Config;
 import com.ldh.java.mp.controller.ArticleController;
+import com.ldh.java.mp.controller.MemberController;
 import com.ldh.java.mp.exception.SQLErrorException;
 import com.ldh.java.mp.util.DBUtil;
 import com.ldh.java.mp.util.SecSql;
@@ -88,6 +89,13 @@ public class DispatcherServlet extends HttpServlet {
 
 				if (actionMethodName.equals("list")) {
 					controller.actionList();
+				}
+
+			} else if (controllerName.equals("member")) {
+				MemberController controller = new MemberController(request, response, conn);
+
+				if (actionMethodName.equals("join")) {
+					controller.actionJoin();
 				}
 			}
 

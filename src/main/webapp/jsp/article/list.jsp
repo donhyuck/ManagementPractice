@@ -65,7 +65,7 @@ int totalpage = (int) request.getAttribute("totalpage");
 	<!--  목록의 페이지 노출 갯수 제한 -->
 	<div class="page">
 		<% if (cPage > 1) { %>
-			<a href="list?page=1">◀</a>
+			<a href="/MP/menu/article/list?page=1">◀</a>
 		<% } %>
 		
 		<% int pageMenuSize = 10;
@@ -83,11 +83,11 @@ int totalpage = (int) request.getAttribute("totalpage");
 		} %>
 		
 		<% for (int i = from; i <= end; i++) {%>
-			<a class="<%=cPage == i ? "red" : ""%>" href="list?page=<%=i%>"><%=i%></a>
+			<a class="<%=cPage == i ? "red" : ""%>" href="/MP/menu/article/list?page=<%=i%>"><%=i%></a>
 		<% } %>
 		
 		<% if (cPage < totalpage) { %>
-			<a href="list?page=<%= totalpage %>">▶</a>
+			<a href="/MP/menu/article/list?page=<%= totalpage %>">▶</a>
 		<% } %>
 	</div>
 
