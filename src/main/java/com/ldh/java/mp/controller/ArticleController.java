@@ -73,4 +73,18 @@ public class ArticleController {
 
 		request.getRequestDispatcher("/jsp/article/modify.jsp").forward(request, response);
 	}
+
+	// 게시글 수정하기
+	public void actionModify() throws IOException {
+
+		// 입력받은 제목과 내용
+		int id = Integer.parseInt(request.getParameter("id"));
+		String title = request.getParameter("title");
+		String body = request.getParameter("body");
+
+		articleService.modify(id, title, body);
+		
+		response.getWriter().append(String
+				.format("<<script>alert('%d번 글이 수정되었습니다.'); location.replace('detail?id=%d'); </script>", id, id));
+	}
 }

@@ -49,7 +49,6 @@ public class ArticleDao {
 	// 특정 게시글 상세보기
 	public Article getArticle(int id) {
 
-		// 게시글 상세 보기
 		SecSql sql = SecSql.from("SELECT *");
 		sql.append("FROM article");
 		sql.append("WHERE id = ?", id);
@@ -59,6 +58,17 @@ public class ArticleDao {
 		Article article = new Article(articleRow);
 
 		return article;
+	}
+
+	// 게시글 수정하기
+	public void modify(int id, String title, String body) {
+
+		SecSql sql = SecSql.from("UPDATE article");
+		sql.append("SET `title` = ?", title);
+		sql.append(", `body` = ?", body);
+		sql.append("WHERE id = ?", id);
+
+		DBUtil.update(conn, sql);
 	}
 
 }

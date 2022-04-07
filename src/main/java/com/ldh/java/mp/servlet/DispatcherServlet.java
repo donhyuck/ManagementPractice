@@ -93,7 +93,9 @@ public class DispatcherServlet extends HttpServlet {
 					controller.actionDetail();
 				} else if (actionMethodName.equals("modify")) {
 					controller.showModifyPage();
-				}
+				} else if (actionMethodName.equals("doModify")) {
+					controller.actionModify();
+				} 
 
 			} else if (controllerName.equals("member")) {
 				MemberController controller = new MemberController(request, response, conn);

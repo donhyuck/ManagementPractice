@@ -48,4 +48,8 @@ public class ArticleService {
 		return articleDao.getArticle(id);
 	}
 
+	public void modify(int id, String title, String body) {
+		articleDao.modify(id, title, body);
+	}
+
 }
