@@ -3,8 +3,9 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
+<%@ page import="com.ldh.java.mp.dto.Article" %>
 <% 
-Map<String, Object> articleRow = (Map<String, Object>) request.getAttribute("articleRow");
+Article article = (Article) request.getAttribute("article");
 %>    
 <!DOCTYPE html>
 <html>
@@ -17,19 +18,16 @@ Map<String, Object> articleRow = (Map<String, Object>) request.getAttribute("art
 	<div><a href="list">목록으로 가기</a></div>
 	
 	<form action="doModify" method="post">
-		<!-- 
-		<input name="id" type="hidden" value="<%= articleRow.get("id") %>" />
-		<input name="id" type="hidden" value="<%= Integer.parseInt(request.getParameter("id")) %>" />  -->
-		<!-- el표기법 -->
+		
 		<input name="id" type="hidden" value="${ param.id }" />
-		<div>번호 : <%= (int) articleRow.get("id") %></div>
-		<div>날짜 : <%= (LocalDateTime) articleRow.get("regDate") %></div>
+		<div>번호 : <%= article.id %></div>
+		<div>날짜 : <%= article.regDate %></div>
 	
 		<div>
-			제목 : <input name="title" type="text" value="<%= (String) articleRow.get("title") %>" autocomplete="off" placeholder="제목을 입력해주세요."/>
+			제목 : <input name="title" type="text" value="<%= article.title %>" autocomplete="off" placeholder="제목을 입력해주세요."/>
 		</div>
 		<div>
-			내용 : <textarea name="body" autocomplete="off" placeholder="내용을 입력해주세요."><%= (String) articleRow.get("body") %></textarea>
+			내용 : <textarea name="body" autocomplete="off" placeholder="내용을 입력해주세요."><%= article.body %></textarea>
 		</div>
 		
 		<div>

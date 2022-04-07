@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ldh.java.mp.dto.Article;
 import com.ldh.java.mp.service.ArticleService;
+import com.ldh.java.mp.util.DBUtil;
+import com.ldh.java.mp.util.SecSql;
 
 public class ArticleController {
 
@@ -60,4 +62,15 @@ public class ArticleController {
 		request.getRequestDispatcher("/jsp/article/detail.jsp").forward(request, response);
 	}
 
+	// 수정 페이지 보기
+	public void showModifyPage() throws ServletException, IOException {
+
+		// 원하는 게시글로 이동하기 위해서는 이에 해당하는 번호를 받아야한다.
+		int id = Integer.parseInt(request.getParameter("id"));
+
+		Article article = articleService.getForPrintArticle(id);
+		request.setAttribute("article", article);
+
+		request.getRequestDispatcher("/jsp/article/modify.jsp").forward(request, response);
+	}
 }
