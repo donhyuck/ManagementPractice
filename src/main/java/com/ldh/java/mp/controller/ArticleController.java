@@ -3,7 +3,6 @@ package com.ldh.java.mp.controller;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ldh.java.mp.dto.Article;
 import com.ldh.java.mp.service.ArticleService;
-import com.ldh.java.mp.util.DBUtil;
-import com.ldh.java.mp.util.SecSql;
 
 public class ArticleController {
 
@@ -98,5 +95,31 @@ public class ArticleController {
 		response.getWriter()
 				.append(String.format("<<script>alert('%d번 글이 삭제되었습니다.'); location.replace('list'); </script>", id));
 
+	}
+
+	// 작성 페이지 보기
+	public void showWritePage() throws ServletException, IOException {
+
+		request.getRequestDispatcher("/jsp/article/write.jsp").forward(request, response);
+	}
+
+	// 게시글 등록하기
+	public void actionWrite(int loginedMemberId) throws IOException {
+
+		// 로그인 확인
+		if (loginedMemberId == -1) {
+			response.getWriter().append(
+					String.format("<<script>alert('로그인 후 이용해주세요.'); location.replace('/MP/member/login'); </script>"));
+			return;
+		}
+
+		// 입력받은 제목과 내용
+		String title = request.getParameter("title");
+		String body = request.getParameter("body");
+
+		int id = articleService.write(title, body, loginedMemberId);
+
+		response.getWriter()
+				.append(String.format("<<script>alert('%d번 글이 등록되었습니다.'); location.replace('list'); </script>", id));
 	}
 }

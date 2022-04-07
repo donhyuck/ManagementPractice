@@ -81,4 +81,18 @@ public class ArticleDao {
 		DBUtil.delete(conn, sql);
 	}
 
+	// 게시글 등록하기
+	public int write(String title, String body, int loginedMemberId) {
+
+		SecSql sql = SecSql.from("INSERT INTO `article`");
+		sql.append("SET regDate=NOW()");
+		sql.append(", `memberId` = ?", loginedMemberId);
+		sql.append(", `title` = ?", title);
+		sql.append(", `body` = ?", body);
+
+		int id = DBUtil.insert(conn, sql);
+
+		return id;
+	}
+
 }

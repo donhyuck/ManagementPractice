@@ -56,4 +56,8 @@ public class ArticleService {
 		articleDao.delete(id);
 	}
 
+	public int write(String title, String body, int loginedMemberId) {
+		return articleDao.write(title, body, loginedMemberId);
+	}
+
 }
