@@ -71,4 +71,14 @@ public class ArticleDao {
 		DBUtil.update(conn, sql);
 	}
 
+	// 게시글 삭제하기
+	public void delete(int id) {
+
+		SecSql sql = SecSql.from("DELETE");
+		sql.append("FROM article");
+		sql.append("WHERE id = ?", id);
+
+		DBUtil.delete(conn, sql);
+	}
+
 }

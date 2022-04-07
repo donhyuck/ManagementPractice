@@ -83,8 +83,20 @@ public class ArticleController {
 		String body = request.getParameter("body");
 
 		articleService.modify(id, title, body);
-		
+
 		response.getWriter().append(String
 				.format("<<script>alert('%d번 글이 수정되었습니다.'); location.replace('detail?id=%d'); </script>", id, id));
+	}
+
+	// 게시글 삭제하기
+	public void actionDelete() throws IOException {
+
+		// 원하는 게시글로 이동하기 위해서는 이에 해당하는 번호를 받아야한다.
+		int id = Integer.parseInt(request.getParameter("id"));
+
+		articleService.delete(id);
+		response.getWriter()
+				.append(String.format("<<script>alert('%d번 글이 삭제되었습니다.'); location.replace('list'); </script>", id));
+
 	}
 }
