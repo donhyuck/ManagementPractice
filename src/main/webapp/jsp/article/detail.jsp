@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
+<%@ page import="com.ldh.java.mp.dto.Article" %>
 <% 
 Map<String, Object> articleRow = (Map<String, Object>) request.getAttribute("articleRow");
 %>    
@@ -23,8 +24,8 @@ Map<String, Object> articleRow = (Map<String, Object>) request.getAttribute("art
 	<div>내용 : <%= (String) articleRow.get("body") %></div>
 	
 	<div>
-		<a href="modify?id=${ param.id }">수정</a>
-		<a href="doDelete?id=${ param.id }">삭제</a>
+		<a href="/MP/menu/article/modify?id=${ param.id }">수정</a>
+		<a href="/MP/menu/article/doDelete?id=${ param.id }">삭제</a>
 	</div>
 </body>
 </html>

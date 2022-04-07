@@ -67,18 +67,7 @@ public class ArticleDetailServlet extends HttpServlet {
 			request.setAttribute("loginedMemberId", loginedMemberId);
 			request.setAttribute("loginedMemberRow", loginedMemberRow);
 
-			// 원하는 게시글로 이동하기 위해서는 이에 해당하는 번호를 받아야한다.
-			int id = Integer.parseInt(request.getParameter("id"));
-
-			// 게시글 상세 보기
-			SecSql sql = SecSql.from("SELECT *");
-			sql.append("FROM article");
-			sql.append("WHERE id = ?", id);
-
-			Map<String, Object> articleRow = DBUtil.selectRow(conn, sql);
-			request.setAttribute("articleRow", articleRow);
-
-			request.getRequestDispatcher("/jsp/article/detail.jsp").forward(request, response);
+			
 
 		} catch (SQLException e) {
 			e.printStackTrace();

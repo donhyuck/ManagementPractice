@@ -42,8 +42,21 @@ public class ArticleDao {
 		for (Map<String, Object> articleRow : articleRows) {
 			articles.add(new Article(articleRow));
 		}
-		
+
 		return articles;
+	}
+
+	// 특정 게시글 상세보기
+	public Map<String, Object> getArticle(int id) {
+
+		// 게시글 상세 보기
+		SecSql sql = SecSql.from("SELECT *");
+		sql.append("FROM article");
+		sql.append("WHERE id = ?", id);
+
+		Map<String, Object> articleRow = DBUtil.selectRow(conn, sql);
+		
+		return articleRow;
 	}
 
 }

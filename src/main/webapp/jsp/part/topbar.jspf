@@ -19,6 +19,6 @@ Map<String, Object> loginedMemberRow = (Map<String, Object>) request.getAttribut
 	<%	}	%>
 	
 	
-	<a href="../article/list">게시글 리스트</a>
+	<a href="/MP/menu/article/list">게시글 리스트</a>
 	<hr />
 </div>

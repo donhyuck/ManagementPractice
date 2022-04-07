@@ -3,6 +3,7 @@ package com.ldh.java.mp.controller;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ public class ArticleController {
 		articleService = new ArticleService(conn);
 	}
 
+	// 게시글 전체 목록보기
 	public void actionList() throws ServletException, IOException {
 
 		// 페이지 처음
@@ -44,6 +46,18 @@ public class ArticleController {
 		request.setAttribute("totalpage", totalpage);
 
 		request.getRequestDispatcher("/jsp/article/list.jsp").forward(request, response);
+	}
+
+	// 특정 게시글 상세보기
+	public void actionDetail() throws ServletException, IOException {
+
+		// 원하는 게시글로 이동하기 위해서는 이에 해당하는 번호를 받아야한다.
+		int id = Integer.parseInt(request.getParameter("id"));
+		
+		Map<String, Object> articleRow = articleService.getForPrintArticle(id);
+		request.setAttribute("articleRow", articleRow);
+
+		request.getRequestDispatcher("/jsp/article/detail.jsp").forward(request, response);
 	}
 
 }
