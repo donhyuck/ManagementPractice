@@ -23,4 +23,43 @@ public class Member {
 		this.name = (String) row.get("name");
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public LocalDateTime getRegDate() {
+		return regDate;
+	}
+
+	public void setRegDate(LocalDateTime regDate) {
+		this.regDate = regDate;
+	}
+
+	public String getLoginId() {
+		return loginId;
+	}
+
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
+	}
+
+	public String getLoginPw() {
+		return loginPw;
+	}
+
+	public void setLoginPw(String loginPw) {
+		this.loginPw = loginPw;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }

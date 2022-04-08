@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import com.ldh.java.mp.Config;
 import com.ldh.java.mp.controller.ArticleController;
 import com.ldh.java.mp.controller.MemberController;
+import com.ldh.java.mp.dto.Member;
 import com.ldh.java.mp.exception.SQLErrorException;
 import com.ldh.java.mp.util.DBUtil;
 import com.ldh.java.mp.util.SecSql;
@@ -25,7 +26,7 @@ public class DispatcherServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws IOException, ServletException {
 
 		// 한글 출력
 		response.setContentType("text/html; charset=UTF-8");
@@ -55,6 +56,7 @@ public class DispatcherServlet extends HttpServlet {
 			boolean isLogined = false;
 			int loginedMemberId = -1;
 			Map<String, Object> loginedMemberRow = null;
+			Member loginedMember = null;
 
 			if (session.getAttribute("loginedMemberId") != null) {
 				loginedMemberId = (int) session.getAttribute("loginedMemberId");
@@ -110,6 +112,10 @@ public class DispatcherServlet extends HttpServlet {
 					controller.showJoinPage();
 				} else if (actionMethodName.equals("doJoin")) {
 					controller.actionJoin();
+				} else if (actionMethodName.equals("login")) {
+					controller.showLoginPage();
+				} else if (actionMethodName.equals("doLogin")) {
+					controller.actionLogin();
 				}
 			}
 

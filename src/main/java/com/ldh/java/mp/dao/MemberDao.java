@@ -1,7 +1,9 @@
 package com.ldh.java.mp.dao;
 
 import java.sql.Connection;
+import java.util.Map;
 
+import com.ldh.java.mp.dto.Member;
 import com.ldh.java.mp.util.DBUtil;
 import com.ldh.java.mp.util.SecSql;
 
@@ -37,6 +39,19 @@ public class MemberDao {
 		int id = DBUtil.insert(conn, sql);
 
 		return id;
+	}
+
+	// 회원 체크
+	public Member getMemberByLoginId(String loginId) {
+
+		SecSql sql = SecSql.from("SELECT * FROM `member`");
+		sql.append("WHERE loginId = ?", loginId);
+
+		Map<String, Object> memberRow = DBUtil.selectRow(conn, sql);
+
+		Member member = new Member(memberRow);
+
+		return member;
 	}
 
 }

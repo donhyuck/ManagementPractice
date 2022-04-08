@@ -2,6 +2,7 @@
 <%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="com.ldh.java.mp.dto.Member" %>
 <%
 boolean isLogined = (boolean) request.getAttribute("isLogined");
 int loginedMemberId = (int) request.getAttribute("loginedMemberId");
@@ -10,15 +11,16 @@ Map<String, Object> loginedMemberRow = (Map<String, Object>) request.getAttribut
 <!-- 상단 공통 영역 -->
 <div>
 	<%	if (isLogined) {	%>
-		<span><%=loginedMemberRow.get("name")%>님 환영합니다. </span>
-		<a href="../member/doLogout">로그아웃</a>
+		<span><%= (String) loginedMemberRow.get("name")%>님 환영합니다. </span>
+		<a href="/MP/menu/member/doLogout">로그아웃</a>
 	<%	}	%>
 
 	<%	if (!isLogined) {	%>
-		<a href="../member/login">로그인</a>
+		<a href="/MP/menu/member/login">로그인</a>
 	<%	}	%>
 	
-	
+	<br />
 	<a href="/MP/menu/article/list">게시글 리스트</a>
+	<a href="/MP/menu/home/main">메인 페이지</a>
 	<hr />
 </div>

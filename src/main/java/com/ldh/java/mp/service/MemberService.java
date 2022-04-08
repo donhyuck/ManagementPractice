@@ -3,6 +3,7 @@ package com.ldh.java.mp.service;
 import java.sql.Connection;
 
 import com.ldh.java.mp.dao.MemberDao;
+import com.ldh.java.mp.dto.Member;
 
 public class MemberService {
 
@@ -25,6 +26,10 @@ public class MemberService {
 
 	public int join(String loginId, String loginPw, String name) {
 		return memberDao.join(loginId, loginPw, name);
+	}
+
+	public Member getMemberByLoginId(String loginId) {
+		return memberDao.getMemberByLoginId(loginId);
 	}
 
 }

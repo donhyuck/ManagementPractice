@@ -6,7 +6,9 @@ import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.ldh.java.mp.dto.Member;
 import com.ldh.java.mp.service.MemberService;
 
 public class MemberController {
@@ -24,11 +26,13 @@ public class MemberController {
 		memberService = new MemberService(conn);
 	}
 
+	// 회원가입 페이지 보기
 	public void showJoinPage() throws ServletException, IOException {
 
 		request.getRequestDispatcher("/jsp/member/join.jsp").forward(request, response);
 	}
 
+	// 회원가입 하기
 	public void actionJoin() throws IOException {
 
 		// 입력받은 회원정보
@@ -52,4 +56,42 @@ public class MemberController {
 				"<<script>alert('%s님 %d번 회원으로 가입되었습니다.'); location.replace('../home/main'); </script>", name, id));
 	}
 
+	// 로그인 페이지 보기
+	public void showLoginPage() throws ServletException, IOException {
+
+		request.getRequestDispatcher("/jsp/member/login.jsp").forward(request, response);
+	}
+
+	// 로그인 하기
+	public void actionLogin() throws IOException {
+
+		// 입력받은 회원 로그인 정보
+		String loginId = request.getParameter("loginId");
+		String loginPw = request.getParameter("loginPw");
+
+		// 회원 체크
+		Member member = memberService.getMemberByLoginId(loginId);
+		
+		if (member == null) {
+			response.getWriter().append(
+					String.format("<script> alert('%s(은)는 등록되지 않은 회원입니다.'); history.back(); </script>", loginId));
+			return;
+		}
+
+		if (member.getLoginPw().equals(loginPw) == false) {
+			response.getWriter().append("<script> alert('비밀번호가 일치하지 않습니다.'); history.back(); </script>");
+			return;
+		}
+
+		// 로그인 정보를 세션으로 관리
+		HttpSession session = request.getSession();
+		session.setAttribute("loginedMemberId", member.getId());
+
+		response.getWriter()
+				.append(String.format(
+						"<script> alert('%s님 로그인되었습니다.'); location.replace('/MP/menu/home/main'); </script>",
+						member.getName()));
+		return;
+
+	}
 }
