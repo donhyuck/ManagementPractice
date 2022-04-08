@@ -16,15 +16,15 @@ public class MemberDao {
 	}
 
 	// 로그인 아이디 중복체크
-	public int isExistLoginId(String loginId) {
+	public int isLoginIdExist(String loginId) {
 
-		SecSql sql = SecSql.from("SELECT COUNT(*) AS cnt ");
+		SecSql sql = SecSql.from("SELECT COUNT(*)");
 		sql.append("FROM `member`");
 		sql.append("WHERE loginId = ?", loginId);
 
-		int isExistLoginId = DBUtil.selectRowIntValue(conn, sql);
+		int isLoginIdExist = DBUtil.selectRowIntValue(conn, sql);
 
-		return isExistLoginId;
+		return isLoginIdExist;
 	}
 
 	// 회원가입하기

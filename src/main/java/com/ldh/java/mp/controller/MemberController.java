@@ -41,9 +41,9 @@ public class MemberController {
 		String name = request.getParameter("name");
 
 		// 로그인 아이디 중복체크
-		boolean isJoinableByLoginId = memberService.checkForJoinable(loginId);
+		int isLoginIdExist = memberService.isLoginIdExist(loginId);
 
-		if (isJoinableByLoginId == false) {
+		if (isLoginIdExist != 0) {
 			response.getWriter().append(
 					String.format("<script> alert('%s (은)는 이미 사용중인 아이디 입니다.'); history.back(); </script>", loginId));
 			return;
@@ -69,14 +69,17 @@ public class MemberController {
 		String loginId = request.getParameter("loginId");
 		String loginPw = request.getParameter("loginPw");
 
-		// 회원 체크
-		Member member = memberService.getMemberByLoginId(loginId);
-		
-		if (member == null) {
+		// 로그인 아이디 중복체크
+		int isLoginIdExist = memberService.isLoginIdExist(loginId);
+
+		if (isLoginIdExist == 0) {
 			response.getWriter().append(
 					String.format("<script> alert('%s(은)는 등록되지 않은 회원입니다.'); history.back(); </script>", loginId));
 			return;
 		}
+
+		// 비밀번호 확인
+		Member member = memberService.getMemberByLoginId(loginId);
 
 		if (member.getLoginPw().equals(loginPw) == false) {
 			response.getWriter().append("<script> alert('비밀번호가 일치하지 않습니다.'); history.back(); </script>");
