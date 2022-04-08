@@ -97,4 +97,16 @@ public class MemberController {
 		return;
 
 	}
+
+	// 로그아웃 하기
+	public void actionLogout() throws IOException {
+
+		// 로그인 정보를 세션으로 관리
+		HttpSession session = request.getSession();
+		session.removeAttribute("loginedMemberId");
+
+		response.getWriter().append(
+				String.format("<script> alert('로그아웃되었습니다.'); location.replace('/MP/menu/home/main'); </script>"));
+		return;
+	}
 }

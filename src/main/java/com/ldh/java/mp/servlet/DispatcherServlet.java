@@ -116,6 +116,8 @@ public class DispatcherServlet extends HttpServlet {
 					controller.showLoginPage();
 				} else if (actionMethodName.equals("doLogin")) {
 					controller.actionLogin();
+				} else if (actionMethodName.equals("doLogout")) {
+					controller.actionLogout();
 				}
 			}
 

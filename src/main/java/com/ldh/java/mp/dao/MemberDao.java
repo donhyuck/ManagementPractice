@@ -41,7 +41,7 @@ public class MemberDao {
 		return id;
 	}
 
-	// 회원 체크
+	// 회원 객체 가져오기
 	public Member getMemberByLoginId(String loginId) {
 
 		SecSql sql = SecSql.from("SELECT * FROM `member`");
