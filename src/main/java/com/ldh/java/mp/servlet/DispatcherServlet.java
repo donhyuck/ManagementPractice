@@ -107,6 +107,8 @@ public class DispatcherServlet extends HttpServlet {
 				MemberController controller = new MemberController(request, response, conn);
 
 				if (actionMethodName.equals("join")) {
+					controller.showJoinPage();
+				} else if (actionMethodName.equals("join")) {
 					controller.actionJoin();
 				}
 			}

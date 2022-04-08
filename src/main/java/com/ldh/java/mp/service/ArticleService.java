@@ -2,7 +2,6 @@ package com.ldh.java.mp.service;
 
 import java.sql.Connection;
 import java.util.List;
-import java.util.Map;
 
 import com.ldh.java.mp.dao.ArticleDao;
 import com.ldh.java.mp.dto.Article;
