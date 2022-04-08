@@ -13,6 +13,8 @@
 	<h1>메인페이지</h1>
 
 	<%@ include file="../part/topbar.jspf" %>
+	
+	<a href="/MP/menu/member/join">회원가입</a>
 
 </body>
 </html>

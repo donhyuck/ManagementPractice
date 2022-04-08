@@ -14,4 +14,17 @@ public class MemberService {
 		this.memberDao = new MemberDao(conn);
 	}
 
+	public boolean checkForJoinable(String loginId) {
+
+		if (memberDao.isExistLoginId(loginId) > 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	public int join(String loginId, String loginPw, String name) {
+		return memberDao.join(loginId, loginPw, name);
+	}
+
 }

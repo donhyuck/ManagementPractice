@@ -18,7 +18,7 @@ import com.ldh.java.mp.exception.SQLErrorException;
 import com.ldh.java.mp.util.DBUtil;
 import com.ldh.java.mp.util.SecSql;
 
-@WebServlet("/home/main")
+@WebServlet("/menu/home/main")
 public class HomeMainServlet extends HttpServlet {
 
 	@Override

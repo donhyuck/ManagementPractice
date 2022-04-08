@@ -108,7 +108,7 @@ public class DispatcherServlet extends HttpServlet {
 
 				if (actionMethodName.equals("join")) {
 					controller.showJoinPage();
-				} else if (actionMethodName.equals("join")) {
+				} else if (actionMethodName.equals("doJoin")) {
 					controller.actionJoin();
 				}
 			}

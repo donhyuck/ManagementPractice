@@ -50,7 +50,7 @@
 		<div>
 			<button type="submit">로그인</button>
 			<button type="button">
-				<a href="../home/main">취소</a>
+				<a href="/menu/home/main">취소</a>
 			</button>
 		</div>
 	</form>

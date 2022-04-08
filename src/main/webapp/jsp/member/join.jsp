@@ -12,6 +12,7 @@
 	<!-- 입력확인 영역 -->
 	<script>
 		var JoinForm__submitDone = false;
+		
 		function JoinForm__submit(form) {
 			if (JoinForm__submitDone) {
 				alert('처리중 입니다.');
@@ -69,7 +70,7 @@
 		<div>
 			<button type="submit">가입</button>
 			<button type="button">
-				<a href="../home/main">취소</a>
+				<a href="/MP/menu/home/main">취소</a>
 			</button>
 		</div>
 	</form>
