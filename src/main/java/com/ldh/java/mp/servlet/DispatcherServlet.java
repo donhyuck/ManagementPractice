@@ -4,23 +4,18 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.ldh.java.mp.Config;
 import com.ldh.java.mp.controller.ArticleController;
 import com.ldh.java.mp.controller.HomeController;
 import com.ldh.java.mp.controller.MemberController;
-import com.ldh.java.mp.dto.Member;
 import com.ldh.java.mp.exception.SQLErrorException;
-import com.ldh.java.mp.util.DBUtil;
-import com.ldh.java.mp.util.SecSql;
 
 @WebServlet("/menu/*")
 public class DispatcherServlet extends HttpServlet {
@@ -50,29 +45,9 @@ public class DispatcherServlet extends HttpServlet {
 		try {
 			conn = DriverManager.getConnection(Config.getDBUrl(), Config.getDBId(), Config.getDBPw());
 
-			// 모든 요청 이전에 무조건 해줘야 하는 일
-			// 로그인 상태 확인
-			HttpSession session = request.getSession();
-
-			boolean isLogined = false;
-			int loginedMemberId = -1;
-			Member loginedMember = null;
-
-			if (session.getAttribute("loginedMemberId") != null) {
-				loginedMemberId = (int) session.getAttribute("loginedMemberId");
-				isLogined = true;
-
-				SecSql sql = SecSql.from("SELECT * FROM `member`");
-				sql.append("WHERE id = ?", loginedMemberId);
-
-				Map<String, Object> loginedMemberRow = DBUtil.selectRow(conn, sql);
-
-				loginedMember = new Member(loginedMemberRow);
-			}
-
-			request.setAttribute("isLogined", isLogined);
-			request.setAttribute("loginedMemberId", loginedMemberId);
-			request.setAttribute("loginedMember", loginedMember);
+			HomeController homeController = new HomeController(request, response, conn);
+			homeController.loginCheck();
+			int loginedMemberId = homeController.getLoginedMemberId();
 
 			// URI
 			// http://localhost:8082/MP/menu/[]/[]
@@ -123,10 +98,10 @@ public class DispatcherServlet extends HttpServlet {
 				}
 
 			} else if (controllerName.equals("home")) {
-				HomeController controller = new HomeController(request, response, conn);
+				homeController = new HomeController(request, response, conn);
 
 				if (actionMethodName.equals("main")) {
-					controller.showMainPage();
+					homeController.showMainPage();
 				}
 			}
 

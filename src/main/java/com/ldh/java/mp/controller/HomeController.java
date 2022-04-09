@@ -39,25 +39,32 @@ public class HomeController {
 		request.getRequestDispatcher("/jsp/home/main.jsp").forward(request, response);
 	}
 
-	private void loginCheck() {
-
-		HttpSession session = request.getSession();
+	public void loginCheck() {
 
 		boolean isLogined = false;
-		int loginedMemberId = -1;
+		int loginedMemberId = getLoginedMemberId();
 		Member loginedMember = null;
 
-		if (session.getAttribute("loginedMemberId") != null) {
-
+		if (getLoginedMemberId() != -1) {
 			isLogined = true;
-			loginedMemberId = (int) session.getAttribute("loginedMemberId");
+			loginedMemberId = getLoginedMemberId();
 			loginedMember = homeService.getLoginedMember(loginedMemberId);
-
 		}
 
 		request.setAttribute("isLogined", isLogined);
 		request.setAttribute("loginedMemberId", loginedMemberId);
 		request.setAttribute("loginedMember", loginedMember);
+	}
 
+	public int getLoginedMemberId() {
+
+		HttpSession session = request.getSession();
+		int loginedMemberId = -1;
+
+		if (session.getAttribute("loginedMemberId") != null) {
+			loginedMemberId = (int) session.getAttribute("loginedMemberId");
+		}
+
+		return loginedMemberId;
 	}
 }
