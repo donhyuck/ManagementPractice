@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import com.ldh.java.mp.Config;
 import com.ldh.java.mp.controller.ArticleController;
+import com.ldh.java.mp.controller.HomeController;
 import com.ldh.java.mp.controller.MemberController;
 import com.ldh.java.mp.dto.Member;
 import com.ldh.java.mp.exception.SQLErrorException;
@@ -120,6 +121,9 @@ public class DispatcherServlet extends HttpServlet {
 				} else if (actionMethodName.equals("doLogout")) {
 					controller.actionLogout();
 				}
+
+			} else if (controllerName.equals("home")) {
+				HomeController controller = new HomeController(request, response, conn);
 			}
 
 		} catch (SQLException e) {
