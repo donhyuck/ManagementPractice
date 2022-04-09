@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ldh.java.mp.Config;
+import com.ldh.java.mp.dto.Member;
 import com.ldh.java.mp.exception.SQLErrorException;
 import com.ldh.java.mp.util.DBUtil;
 import com.ldh.java.mp.util.SecSql;
@@ -46,12 +47,13 @@ public class HomeMainServlet extends HttpServlet {
 		try {
 			conn = DriverManager.getConnection(Config.getDBUrl(), Config.getDBId(), Config.getDBPw());
 
+			// 모든 요청 이전에 무조건 해줘야 하는 일
 			// 로그인 상태 확인
 			HttpSession session = request.getSession();
 
 			boolean isLogined = false;
 			int loginedMemberId = -1;
-			Map<String, Object> loginedMemberRow = null;
+			Member loginedMember = null;
 
 			if (session.getAttribute("loginedMemberId") != null) {
 				loginedMemberId = (int) session.getAttribute("loginedMemberId");
@@ -60,12 +62,14 @@ public class HomeMainServlet extends HttpServlet {
 				SecSql sql = SecSql.from("SELECT * FROM `member`");
 				sql.append("WHERE id = ?", loginedMemberId);
 
-				loginedMemberRow = DBUtil.selectRow(conn, sql);
+				Map<String, Object> loginedMemberRow = DBUtil.selectRow(conn, sql);
+
+				loginedMember = new Member(loginedMemberRow);
 			}
 
 			request.setAttribute("isLogined", isLogined);
 			request.setAttribute("loginedMemberId", loginedMemberId);
-			request.setAttribute("loginedMemberRow", loginedMemberRow);
+			request.setAttribute("loginedMember", loginedMember);
 
 			request.getRequestDispatcher("/jsp/home/main.jsp").forward(request, response);
 

@@ -55,7 +55,6 @@ public class DispatcherServlet extends HttpServlet {
 
 			boolean isLogined = false;
 			int loginedMemberId = -1;
-			Map<String, Object> loginedMemberRow = null;
 			Member loginedMember = null;
 
 			if (session.getAttribute("loginedMemberId") != null) {
@@ -65,12 +64,14 @@ public class DispatcherServlet extends HttpServlet {
 				SecSql sql = SecSql.from("SELECT * FROM `member`");
 				sql.append("WHERE id = ?", loginedMemberId);
 
-				loginedMemberRow = DBUtil.selectRow(conn, sql);
+				Map<String, Object> loginedMemberRow = DBUtil.selectRow(conn, sql);
+
+				loginedMember = new Member(loginedMemberRow);
 			}
 
 			request.setAttribute("isLogined", isLogined);
 			request.setAttribute("loginedMemberId", loginedMemberId);
-			request.setAttribute("loginedMemberRow", loginedMemberRow);
+			request.setAttribute("loginedMember", loginedMember);
 
 			// URI
 			// http://localhost:8082/MP/menu/[]/[]

@@ -6,12 +6,12 @@
 <%
 boolean isLogined = (boolean) request.getAttribute("isLogined");
 int loginedMemberId = (int) request.getAttribute("loginedMemberId");
-Map<String, Object> loginedMemberRow = (Map<String, Object>) request.getAttribute("loginedMemberRow");
+Member loginedMember = (Member) request.getAttribute("loginedMember");
 %>
 <!-- 상단 공통 영역 -->
 <div>
 	<%	if (isLogined) {	%>
-		<span><%= (String) loginedMemberRow.get("name")%>님 환영합니다. </span>
+		<span><%= (String) loginedMember.name %>님 환영합니다. </span>
 		<a href="/MP/menu/member/doLogout">로그아웃</a>
 	<%	}	%>
 
