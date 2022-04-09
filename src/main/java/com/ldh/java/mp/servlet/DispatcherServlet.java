@@ -124,6 +124,10 @@ public class DispatcherServlet extends HttpServlet {
 
 			} else if (controllerName.equals("home")) {
 				HomeController controller = new HomeController(request, response, conn);
+
+				if (actionMethodName.equals("main")) {
+					controller.showMainPage();
+				}
 			}
 
 		} catch (SQLException e) {
