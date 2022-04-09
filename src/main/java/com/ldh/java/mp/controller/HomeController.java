@@ -2,7 +2,6 @@ package com.ldh.java.mp.controller;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,9 +10,6 @@ import javax.servlet.http.HttpSession;
 
 import com.ldh.java.mp.dto.Member;
 import com.ldh.java.mp.service.HomeService;
-import com.ldh.java.mp.service.MemberService;
-import com.ldh.java.mp.util.DBUtil;
-import com.ldh.java.mp.util.SecSql;
 
 public class HomeController {
 
@@ -33,12 +29,11 @@ public class HomeController {
 	// 메인 페이지 보기
 	public void showMainPage() throws ServletException, IOException {
 
-		// 로그인 상태 확인
 		loginCheck();
-
 		request.getRequestDispatcher("/jsp/home/main.jsp").forward(request, response);
 	}
 
+	// 로그인 상태 확인
 	public void loginCheck() {
 
 		boolean isLogined = false;
@@ -56,6 +51,7 @@ public class HomeController {
 		request.setAttribute("loginedMember", loginedMember);
 	}
 
+	// 로그인 아이디 가져오기
 	public int getLoginedMemberId() {
 
 		HttpSession session = request.getSession();
