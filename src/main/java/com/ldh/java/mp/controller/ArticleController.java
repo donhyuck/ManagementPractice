@@ -98,13 +98,7 @@ public class ArticleController {
 	}
 
 	// 작성 페이지 보기
-	public void showWritePage() throws ServletException, IOException {
-
-		request.getRequestDispatcher("/jsp/article/write.jsp").forward(request, response);
-	}
-
-	// 게시글 등록하기
-	public void actionWrite(int loginedMemberId) throws IOException {
+	public void showWritePage(int loginedMemberId) throws ServletException, IOException {
 
 		// 로그인 확인
 		if (loginedMemberId == -1) {
@@ -112,6 +106,12 @@ public class ArticleController {
 					.format("<<script>alert('로그인 후 이용해주세요.'); location.replace('/MP/menu/member/login'); </script>"));
 			return;
 		}
+
+		request.getRequestDispatcher("/jsp/article/write.jsp").forward(request, response);
+	}
+
+	// 게시글 등록하기
+	public void actionWrite(int loginedMemberId) throws IOException {
 
 		// 입력받은 제목과 내용
 		String title = request.getParameter("title");

@@ -71,7 +71,7 @@ public class DispatcherServlet extends HttpServlet {
 				} else if (actionMethodName.equals("detail")) {
 					controller.actionDetail();
 				} else if (actionMethodName.equals("write")) {
-					controller.showWritePage();
+					controller.showWritePage(loginedMemberId);
 				} else if (actionMethodName.equals("doWrite")) {
 					controller.actionWrite(loginedMemberId);
 				} else if (actionMethodName.equals("modify")) {
@@ -102,6 +102,8 @@ public class DispatcherServlet extends HttpServlet {
 
 				if (actionMethodName.equals("main")) {
 					homeController.showMainPage();
+				} else if (actionMethodName.equals("myInfo")) {
+					homeController.showMyInfo();
 				}
 			}
 

@@ -63,4 +63,20 @@ public class HomeController {
 
 		return loginedMemberId;
 	}
+
+	// 내 정보보기
+	public void showMyInfo() throws ServletException, IOException {
+		
+		int loginedMemberId = getLoginedMemberId();
+
+		if (loginedMemberId == -1) {
+			response.getWriter().append(String
+					.format("<<script>alert('로그인 후 이용해주세요.'); location.replace('/MP/menu/member/login'); </script>"));
+			return;
+		}
+
+		loginCheck();
+		
+		request.getRequestDispatcher("/jsp/member/myInfo.jsp").forward(request, response);
+	}
 }

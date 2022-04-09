@@ -14,6 +14,7 @@
 	<%@ include file="../part/topbar.jspf" %>
 	
 	<a href="/MP/menu/member/join">회원가입</a>
-
+	<a href="/MP/menu/home/myInfo">내정보관리</a>
+	
 </body>
 </html>
