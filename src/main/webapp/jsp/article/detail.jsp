@@ -19,7 +19,7 @@ Article article = (Article) request.getAttribute("article");
 	<%@ include file="../part/topbar.jspf" %>
 	
 	<div>번호 : <%= article.id %></div>
-	<div>날짜 : <%= article.regDate %></div>
+	<div>날짜 : <%= article.regDate.toLocalDate() %> / <%= article.regDate.toLocalTime() %></div>
 	<div>제목 : <%= article.title %></div>
 	<div>내용 : <%= article.body %></div>
 	

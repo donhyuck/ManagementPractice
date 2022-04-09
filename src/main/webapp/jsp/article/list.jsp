@@ -26,9 +26,9 @@ int totalpage = (int) request.getAttribute("totalpage");
 	
 	<table border="1">
 		<colgroup>
-			<col width="80"/>
-			<col width="200"/>
-			<col />
+			<col width="60"/>
+			<col width="150" />
+			<col width="90" />
 		</colgroup>
 		
 		<!-- 게시글 목록 영역 -->
@@ -45,8 +45,8 @@ int totalpage = (int) request.getAttribute("totalpage");
 		<tbody>
 		<% for(Article article : articles) { %>
 			<tr>
-				<td><%= article.id %></td>
-				<td><%= article.regDate %></td>
+				<td  align="center"><%= article.id %></td>
+				<td  align="center"><%= article.regDate.toLocalDate() %></td>
 				<td><a href="/MP/menu/article/detail?id=<%= article.id %>"><%= article.title %></a></td>
 				<td><a href="/MP/menu/article/modify?id=<%= article.id %>">수정</a></td>
 				<td><a href="/MP/menu/article/doDelete?id=<%= article.id %>">삭제</a></td>
