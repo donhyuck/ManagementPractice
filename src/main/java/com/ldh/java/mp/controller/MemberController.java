@@ -29,6 +29,16 @@ public class MemberController {
 	// 회원가입 페이지 보기
 	public void showJoinPage() throws ServletException, IOException {
 
+		// 로그아웃 확인
+		HomeController homeController = new HomeController(request, response, conn);
+		int loginedMemberId = homeController.getLoginedMemberId();
+
+		if (loginedMemberId != -1) {
+			response.getWriter().append(String
+					.format("<<script>alert('로그아웃 후 이용해주세요.'); location.replace('/MP/menu/home/main'); </script>"));
+			return;
+		}
+
 		request.getRequestDispatcher("/jsp/member/join.jsp").forward(request, response);
 	}
 

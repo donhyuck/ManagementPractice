@@ -118,7 +118,6 @@ public class ArticleController {
 		HomeController homeController = new HomeController(request, response, conn);
 		int loginedMemberId = homeController.getLoginedMemberId();
 
-		// 로그인 확인
 		if (loginedMemberId == -1) {
 			response.getWriter().append(String
 					.format("<<script>alert('로그인 후 이용해주세요.'); location.replace('/MP/menu/member/login'); </script>"));

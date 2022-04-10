@@ -77,6 +77,6 @@ public class HomeController {
 
 		loginCheck();
 
-		request.getRequestDispatcher("/jsp/member/myInfo.jsp").forward(request, response);
+		request.getRequestDispatcher("/jsp/home/main.jsp").forward(request, response);
 	}
 }
