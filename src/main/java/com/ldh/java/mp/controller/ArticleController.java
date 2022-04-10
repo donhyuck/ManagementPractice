@@ -69,10 +69,30 @@ public class ArticleController {
 	// 수정 페이지 보기
 	public void showModifyPage() throws ServletException, IOException {
 
+		// 로그인 확인
+		HomeController homeController = new HomeController(request, response, conn);
+		int loginedMemberId = homeController.getLoginedMemberId();
+
+		if (loginedMemberId == -1) {
+			response.getWriter().append(String
+					.format("<<script>alert('로그인 후 이용해주세요.'); location.replace('/MP/menu/member/login'); </script>"));
+			return;
+		}
+
 		// 원하는 게시글로 이동하기 위해서는 이에 해당하는 번호를 받아야한다.
 		int id = Integer.parseInt(request.getParameter("id"));
 
+		// 작성자 확인
+		int memberId = articleService.getMemberIdById(id);
+
+		if (loginedMemberId != memberId) {
+			response.getWriter()
+					.append(String.format("<<script>alert('해당 게시글에 대한 권한이 없습니다.'); history.back(); </script>"));
+			return;
+		}
+
 		Article article = articleService.getForPrintArticle(id);
+		request.setAttribute("article", article);
 
 		request.getRequestDispatcher("/jsp/article/modify.jsp").forward(request, response);
 	}
@@ -111,8 +131,8 @@ public class ArticleController {
 		int memberId = articleService.getMemberIdById(id);
 
 		if (loginedMemberId != memberId) {
-			response.getWriter().append(
-					String.format("<<script>alert('해당 게시글에 대한 권한이 없습니다.'); history.back(); </script>"));
+			response.getWriter()
+					.append(String.format("<<script>alert('해당 게시글에 대한 권한이 없습니다.'); history.back(); </script>"));
 			return;
 		}
 
