@@ -119,4 +119,9 @@ public class MemberController {
 				String.format("<script> alert('로그아웃되었습니다.'); location.replace('/MP/menu/home/main'); </script>"));
 		return;
 	}
+
+	// 비밀번호 변경 페이지 보기
+	public void showPWChangePage() throws ServletException, IOException {
+		request.getRequestDispatcher("/jsp/member/pwChange.jsp").forward(request, response);
+	}
 }

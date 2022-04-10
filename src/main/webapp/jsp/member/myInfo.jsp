@@ -25,6 +25,8 @@ Member loginedMember = (Member) request.getAttribute("loginedMember");
 		<li>아이디 : ${ loginedMember.loginId }</li>
 		<li>성명 : ${ loginedMember.name }</li>
 	</ul>
+	
+	<a href="/MP/menu/member/pwChange">비밀번호 변경</a>
 
 </body>
 </html>
