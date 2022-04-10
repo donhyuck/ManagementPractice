@@ -7,7 +7,6 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.ldh.java.mp.dto.Article;
 import com.ldh.java.mp.service.ArticleService;
@@ -73,6 +72,7 @@ public class ArticleController {
 		HomeController homeController = new HomeController(request, response, conn);
 		int loginedMemberId = homeController.getLoginedMemberId();
 
+		// 로그인 확인
 		if (loginedMemberId == -1) {
 			response.getWriter().append(String
 					.format("<<script>alert('로그인 후 이용해주세요.'); location.replace('/MP/menu/member/login'); </script>"));
@@ -118,6 +118,7 @@ public class ArticleController {
 		HomeController homeController = new HomeController(request, response, conn);
 		int loginedMemberId = homeController.getLoginedMemberId();
 
+		// 로그인 확인
 		if (loginedMemberId == -1) {
 			response.getWriter().append(String
 					.format("<<script>alert('로그인 후 이용해주세요.'); location.replace('/MP/menu/member/login'); </script>"));
@@ -137,15 +138,18 @@ public class ArticleController {
 		}
 
 		articleService.delete(id);
+
 		response.getWriter()
 				.append(String.format("<<script>alert('%d번 글이 삭제되었습니다.'); location.replace('list'); </script>", id));
-
 	}
 
 	// 작성 페이지 보기
-	public void showWritePage(int loginedMemberId) throws ServletException, IOException {
+	public void showWritePage() throws ServletException, IOException {
 
 		// 로그인 확인
+		HomeController homeController = new HomeController(request, response, conn);
+		int loginedMemberId = homeController.getLoginedMemberId();
+
 		if (loginedMemberId == -1) {
 			response.getWriter().append(String
 					.format("<<script>alert('로그인 후 이용해주세요.'); location.replace('/MP/menu/member/login'); </script>"));
@@ -156,15 +160,19 @@ public class ArticleController {
 	}
 
 	// 게시글 등록하기
-	public void actionWrite(int loginedMemberId) throws IOException {
+	public void actionWrite() throws IOException {
 
 		// 입력받은 제목과 내용
 		String title = request.getParameter("title");
 		String body = request.getParameter("body");
 
+		// 작성자번호
+		HomeController homeController = new HomeController(request, response, conn);
+		int loginedMemberId = homeController.getLoginedMemberId();
+
 		int id = articleService.write(title, body, loginedMemberId);
 
-		response.getWriter()
-				.append(String.format("<<script>alert('%d번 글이 등록되었습니다.'); location.replace('list'); </script>", id));
+		response.getWriter().append(String
+				.format("<<script>alert('%d번 글이 등록되었습니다.'); location.replace('detail?id=%d'); </script>", id, id));
 	}
 }

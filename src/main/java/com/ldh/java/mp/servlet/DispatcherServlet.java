@@ -71,9 +71,9 @@ public class DispatcherServlet extends HttpServlet {
 				} else if (actionMethodName.equals("detail")) {
 					controller.actionDetail();
 				} else if (actionMethodName.equals("write")) {
-					controller.showWritePage(loginedMemberId);
+					controller.showWritePage();
 				} else if (actionMethodName.equals("doWrite")) {
-					controller.actionWrite(loginedMemberId);
+					controller.actionWrite();
 				} else if (actionMethodName.equals("modify")) {
 					controller.showModifyPage();
 				} else if (actionMethodName.equals("doModify")) {

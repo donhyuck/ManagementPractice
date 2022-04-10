@@ -66,7 +66,7 @@ public class HomeController {
 
 	// 내 정보보기
 	public void showMyInfo() throws ServletException, IOException {
-		
+
 		int loginedMemberId = getLoginedMemberId();
 
 		if (loginedMemberId == -1) {
@@ -76,7 +76,7 @@ public class HomeController {
 		}
 
 		loginCheck();
-		
+
 		request.getRequestDispatcher("/jsp/member/myInfo.jsp").forward(request, response);
 	}
 }
