@@ -20,11 +20,11 @@ String memberName = (String) request.getAttribute("memberName");
 	
 	<%@ include file="../part/topbar.jspf" %>
 	
-	<div>번호 : <%= article.getId() %></div>
-	<div>날짜 : <%= article.getRegDate().toLocalDate() %> / <%= article.getRegDate().toLocalTime() %></div>
-	<div>제목 : <%= article.getTitle() %></div>
-	<div>내용 : <%= article.getBody() %></div>
-	<div>작성자 : <%= memberName %></div>
+	<div>번호 : ${ article.id }</div>
+	<div>날짜 : ${ article.regDate.toLocalDate() } / ${ article.regDate.toLocalTime() }</div>
+	<div>제목 : ${ article.title }</div>
+	<div>내용 : ${ article.body }</div>
+	<div>작성자 : ${ memberName }</div>
 	
 	<div>
 		<a href="/MP/menu/article/modify?id=${ param.id }">수정</a>
