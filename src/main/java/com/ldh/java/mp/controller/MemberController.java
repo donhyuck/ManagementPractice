@@ -124,4 +124,35 @@ public class MemberController {
 	public void showPWChangePage() throws ServletException, IOException {
 		request.getRequestDispatcher("/jsp/member/pwChange.jsp").forward(request, response);
 	}
+
+	// 비밀번호 변경하기
+	public void actionPWChange() throws IOException {
+
+		// 현재 비밀번호 가져오기
+		HomeController homeController = new HomeController(request, response, conn);
+		Member loginedMember = homeController.getMemberById();
+
+		// 입력받은 회원 로그인 정보
+		String loginPwForCheck = request.getParameter("loginPwForCheck");
+		String newLoginPw = request.getParameter("newLoginPw");
+
+		// 입력한 비밀번호와 회원 비밀번호 일치여부 확인
+		if (!loginedMember.getLoginPw().equals(loginPwForCheck)) {
+			response.getWriter()
+					.append(String.format("<script> alert('비밀번호가 들렸습니다. 다시 확인해주세요.'); location.replace('/MP/menu/home/myInfo'); </script>"));
+			return;
+		}
+
+		// 새 비밀번호 적용
+		int id = loginedMember.getId();
+		memberService.pwChange(id, newLoginPw);
+
+		HttpSession session = request.getSession();
+		session.removeAttribute("loginedMemberId");
+
+		response.getWriter().append(String.format(
+				"<script> alert('%s님 비밀번호가 변경되었습니다. 다시 로그인해주세요.'); location.replace('/MP/menu/home/main'); </script>",
+				loginedMember.getName()));
+		return;
+	}
 }

@@ -97,6 +97,8 @@ public class DispatcherServlet extends HttpServlet {
 					controller.actionLogout();
 				} else if (actionMethodName.equals("pwChange")) {
 					controller.showPWChangePage();
+				} else if (actionMethodName.equals("doPwChange")) {
+					controller.actionPWChange();
 				}
 
 			} else if (controllerName.equals("home")) {

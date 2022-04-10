@@ -28,4 +28,7 @@ public class MemberService {
 		return memberDao.getMemberByLoginId(loginId);
 	}
 
+	public void pwChange(int id, String newLoginPw) {
+		memberDao.getMemberByLoginId(id, newLoginPw);
+	}
 }

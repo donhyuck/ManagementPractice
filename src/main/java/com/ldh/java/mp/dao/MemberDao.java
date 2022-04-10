@@ -41,7 +41,7 @@ public class MemberDao {
 		return id;
 	}
 
-	// 회원 객체 가져오기
+	// 아이디로 회원객체 가져오기
 	public Member getMemberByLoginId(String loginId) {
 
 		SecSql sql = SecSql.from("SELECT * FROM `member`");
@@ -54,4 +54,13 @@ public class MemberDao {
 		return member;
 	}
 
+	// 비밀번호 변경
+	public void getMemberByLoginId(int id, String newLoginPw) {
+
+		SecSql sql = SecSql.from("UPDATE `member`");
+		sql.append("SET loginPw = ?", newLoginPw);
+		sql.append("WHERE id = ?", id);
+
+		DBUtil.update(conn, sql);
+	}
 }

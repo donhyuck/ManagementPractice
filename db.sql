@@ -124,8 +124,18 @@ SELECT * FROM `member`
 WHERE loginId = 'test2';
 
 # 작성자 이름 가져오기
-SELECT * 
+SELECT m.name 
 FROM article a
 LEFT JOIN `member` m
 ON a.memberId = m.id
 WHERE memberId = 4;
+
+# 특정 게시글의 회원번호 가져오기 
+SELECT memberId
+FROM article
+WHERE id = 1;
+
+# 비밀번호 변경하기
+UPDATE `member`
+SET loginPw = 'test444'
+WHERE id = 4;

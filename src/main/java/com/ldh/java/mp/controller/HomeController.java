@@ -51,7 +51,7 @@ public class HomeController {
 		request.setAttribute("loginedMember", loginedMember);
 	}
 
-	// 로그인 아이디 가져오기
+	// 회원번호 가져오기
 	public int getLoginedMemberId() {
 
 		HttpSession session = request.getSession();
@@ -78,5 +78,13 @@ public class HomeController {
 		loginCheck();
 
 		request.getRequestDispatcher("/jsp/member/myInfo.jsp").forward(request, response);
+	}
+
+	// 회원번호로 회원객체 가져오기
+	public Member getMemberById() {
+
+		int loginedMemberId = getLoginedMemberId();
+
+		return homeService.getLoginedMember(loginedMemberId);
 	}
 }

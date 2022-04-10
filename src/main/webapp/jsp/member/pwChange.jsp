@@ -29,6 +29,12 @@
 				form.newLoginPw.focus();
 				return;
 			}
+			
+			if (form.loginPwForCheck.value == form.newLoginPw.value) {
+				alert('이전 비밀번호와 동일합니다.');
+				form.loginPwForCheck.focus();
+				return;
+			}
 			form.sumbit();
 			pwChangeForm__submitDone = true;
 		}
