@@ -20,14 +20,14 @@ Article article = (Article) request.getAttribute("article");
 	<form action="doModify" method="post">
 		
 		<input name="id" type="hidden" value="${ param.id }" />
-		<div>번호 : <%= article.id %></div>
-		<div>날짜 : <%= article.regDate %></div>
+		<div>번호 : <%= article.getId() %></div>
+		<div>날짜 : <%= article.getRegDate() %></div>
 	
 		<div>
-			제목 : <input name="title" type="text" value="<%= article.title %>" autocomplete="off" placeholder="제목을 입력해주세요."/>
+			제목 : <input name="title" type="text" value="<%= article.getTitle() %>" autocomplete="off" placeholder="제목을 입력해주세요."/>
 		</div>
 		<div>
-			내용 : <textarea name="body" autocomplete="off" placeholder="내용을 입력해주세요."><%= article.body %></textarea>
+			내용 : <textarea name="body" autocomplete="off" placeholder="내용을 입력해주세요."><%= article.getBody() %></textarea>
 		</div>
 		
 		<div>

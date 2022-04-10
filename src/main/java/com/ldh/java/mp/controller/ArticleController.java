@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.ldh.java.mp.dto.Article;
 import com.ldh.java.mp.service.ArticleService;
@@ -54,8 +55,13 @@ public class ArticleController {
 		int id = Integer.parseInt(request.getParameter("id"));
 
 		Article article = articleService.getForPrintArticle(id);
-		request.setAttribute("article", article);
 
+		// 작성자 표시
+		int memberId = article.getMemberId();
+
+		request.setAttribute("article", article);
+		request.setAttribute("memberId", memberId);
+		
 		request.getRequestDispatcher("/jsp/article/detail.jsp").forward(request, response);
 	}
 
@@ -66,7 +72,6 @@ public class ArticleController {
 		int id = Integer.parseInt(request.getParameter("id"));
 
 		Article article = articleService.getForPrintArticle(id);
-		request.setAttribute("article", article);
 
 		request.getRequestDispatcher("/jsp/article/modify.jsp").forward(request, response);
 	}

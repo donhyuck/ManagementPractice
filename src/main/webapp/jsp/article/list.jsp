@@ -45,11 +45,11 @@ int totalpage = (int) request.getAttribute("totalpage");
 		<tbody>
 		<% for(Article article : articles) { %>
 			<tr>
-				<td  align="center"><%= article.id %></td>
-				<td  align="center"><%= article.regDate.toLocalDate() %></td>
-				<td><a href="/MP/menu/article/detail?id=<%= article.id %>"><%= article.title %></a></td>
-				<td><a href="/MP/menu/article/modify?id=<%= article.id %>">수정</a></td>
-				<td><a href="/MP/menu/article/doDelete?id=<%= article.id %>">삭제</a></td>
+				<td  align="center"><%= article.getId() %></td>
+				<td  align="center"><%= article.getRegDate().toLocalDate() %></td>
+				<td><a href="/MP/menu/article/detail?id=<%= article.getId() %>"><%= article.getTitle() %></a></td>
+				<td><a href="/MP/menu/article/modify?id=<%= article.getId() %>">수정</a></td>
+				<td><a href="/MP/menu/article/doDelete?id=<%= article.getId() %>">삭제</a></td>
 			</tr>
 		<% } %>	
 		</tbody>

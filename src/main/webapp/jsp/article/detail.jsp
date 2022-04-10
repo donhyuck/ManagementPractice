@@ -4,8 +4,10 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="com.ldh.java.mp.dto.Article" %>
+<%@ page import="com.ldh.java.mp.dto.Member" %>
 <% 
 Article article = (Article) request.getAttribute("article");
+int memberId = (int) request.getAttribute("memberId");
 %>    
 <!DOCTYPE html>
 <html>
@@ -18,10 +20,11 @@ Article article = (Article) request.getAttribute("article");
 	
 	<%@ include file="../part/topbar.jspf" %>
 	
-	<div>번호 : <%= article.id %></div>
-	<div>날짜 : <%= article.regDate.toLocalDate() %> / <%= article.regDate.toLocalTime() %></div>
-	<div>제목 : <%= article.title %></div>
-	<div>내용 : <%= article.body %></div>
+	<div>번호 : <%= article.getId() %></div>
+	<div>날짜 : <%= article.getRegDate().toLocalDate() %> / <%= article.getRegDate().toLocalTime() %></div>
+	<div>제목 : <%= article.getTitle() %></div>
+	<div>내용 : <%= article.getBody() %></div>
+	<div>작성자 : <%= article.getMemberId() %></div>
 	
 	<div>
 		<a href="/MP/menu/article/modify?id=${ param.id }">수정</a>
