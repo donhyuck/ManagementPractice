@@ -109,4 +109,15 @@ public class ArticleDao {
 		return memberName;
 	}
 
+	public int getMemberIdById(int id) {
+
+		SecSql sql = SecSql.from("SELECT memberId");
+		sql.append("FROM article");
+		sql.append("WHERE id = ?", id);
+
+		int memberId = DBUtil.selectRowIntValue(conn, sql);
+
+		return memberId;
+	}
+
 }

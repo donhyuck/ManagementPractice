@@ -62,4 +62,8 @@ public class ArticleService {
 	public String getMemberNameByMemberId(int memberId) {
 		return articleDao.getMemberNameByMemberId(memberId);
 	}
+
+	public int getMemberIdById(int id) {
+		return articleDao.getMemberIdById(id);
+	}
 }
