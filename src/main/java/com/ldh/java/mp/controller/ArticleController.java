@@ -58,10 +58,11 @@ public class ArticleController {
 
 		// 작성자 표시
 		int memberId = article.getMemberId();
+		String memberName = articleService.getMemberNameByMemberId(memberId);
 
 		request.setAttribute("article", article);
-		request.setAttribute("memberId", memberId);
-		
+		request.setAttribute("memberName", memberName);
+
 		request.getRequestDispatcher("/jsp/article/detail.jsp").forward(request, response);
 	}
 

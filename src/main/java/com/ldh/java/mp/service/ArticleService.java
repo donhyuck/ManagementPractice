@@ -59,4 +59,7 @@ public class ArticleService {
 		return articleDao.write(title, body, loginedMemberId);
 	}
 
+	public String getMemberNameByMemberId(int memberId) {
+		return articleDao.getMemberNameByMemberId(memberId);
+	}
 }

@@ -95,4 +95,18 @@ public class ArticleDao {
 		return id;
 	}
 
+	// 작성자 이름 가져오기
+	public String getMemberNameByMemberId(int memberId) {
+
+		SecSql sql = SecSql.from("SELECT m.name");
+		sql.append("FROM article a");
+		sql.append("LEFT JOIN `member` m");
+		sql.append("ON a.memberId = m.id");
+		sql.append("WHERE memberId = ?", memberId);
+
+		String memberName = DBUtil.selectRowStringValue(conn, sql);
+
+		return memberName;
+	}
+
 }

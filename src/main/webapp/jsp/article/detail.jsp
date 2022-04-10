@@ -7,7 +7,7 @@
 <%@ page import="com.ldh.java.mp.dto.Member" %>
 <% 
 Article article = (Article) request.getAttribute("article");
-int memberId = (int) request.getAttribute("memberId");
+String memberName = (String) request.getAttribute("memberName");
 %>    
 <!DOCTYPE html>
 <html>
@@ -24,7 +24,7 @@ int memberId = (int) request.getAttribute("memberId");
 	<div>날짜 : <%= article.getRegDate().toLocalDate() %> / <%= article.getRegDate().toLocalTime() %></div>
 	<div>제목 : <%= article.getTitle() %></div>
 	<div>내용 : <%= article.getBody() %></div>
-	<div>작성자 : <%= article.getMemberId() %></div>
+	<div>작성자 : <%= memberName %></div>
 	
 	<div>
 		<a href="/MP/menu/article/modify?id=${ param.id }">수정</a>
