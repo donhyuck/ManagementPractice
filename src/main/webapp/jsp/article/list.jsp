@@ -54,41 +54,34 @@ int totalpage = (int) request.getAttribute("totalpage");
 			</c:forEach>
 		</tbody>
 	</table>
-	
-	<!-- 게시글 목록 페이지 영역 -->
-	<style type="text/css">
-		.page > a.red {
-			color: red;
-		}
-	</style>
 
 	<!--  목록의 페이지 노출 갯수 제한 -->
-	<div class="page">
-		<% if (cPage > 1) { %>
-			<a href="/MP/menu/article/list?page=1">◀</a>
-		<% } %>
+	<c:set var="pageMenuSize" value="${ 10 }" />
+	<c:set var="cPage" value="<%= cPage %>" />
+	<c:set var="totalpage" value="<%= totalpage %>" />
 		
-		<% int pageMenuSize = 10;
+	<div>
+		<c:if test="${ cPage > 1 }">
+			<a href="/MP/menu/article/list?page=${ 1 }">◀</a>
+		</c:if>
 		
-		int from = cPage - pageMenuSize;
-		// 1페이지 이하 제거
-		if (from < 1) {
-			from = 1;
-		}
-			
-		int end = cPage + pageMenuSize;
-		// 최대 페이지 이상 제거
-		if (end > totalpage) {
-			end = totalpage;
-		} %>
+		<c:set var="from" value="${ cPage - pageMenuSize }" />
+		<c:if test="${ from < 1 }">
+			<c:set var="from" value="${ 1 }" />
+		</c:if>
 		
-		<% for (int i = from; i <= end; i++) {%>
-			<a class="<%=cPage == i ? "red" : ""%>" href="/MP/menu/article/list?page=<%=i%>"><%=i%></a>
-		<% } %>
+		<c:set var="end" value="${ cPage + pageMenuSize }" />
+		<c:if test="${ end > totalpage }">
+			<c:set var="end" value="${ totalpage }" />
+		</c:if>
+	
+		<c:forEach var="i" begin="${ from }" end="${ end }">
+			<a href="/MP/menu/article/list?page=${i}"> ${ i } </a>
+		</c:forEach>
 		
-		<% if (cPage < totalpage) { %>
-			<a href="/MP/menu/article/list?page=<%= totalpage %>">▶</a>
-		<% } %>
+		<c:if test="${ cPage < totalpage }">
+			<a href="/MP/menu/article/list?page=${ totalpage }">▶</a>
+		</c:if>
 	</div>
 
 </body>
