@@ -11,7 +11,7 @@
 
 	<script>
 		var pwChangeForm__submitDone = false;
-		
+
 		function pwChangeForm__submit(form) {
 			if (pwChangeForm__submitDone) {
 				alert('처리중 입니다.');
@@ -29,7 +29,7 @@
 				form.newLoginPw.focus();
 				return;
 			}
-			
+
 			if (form.loginPwForCheck.value == form.newLoginPw.value) {
 				alert('이전 비밀번호와 동일합니다.');
 				form.loginPwForCheck.focus();
@@ -43,10 +43,12 @@
 	<form action="doPwChange" method="post"
 		onsubmit="pwChangeForm__submit(this); return false;">
 		<div>
-			현재 비밀번호 : <input name="loginPwForCheck" type="password" placeholder="현재 비밀번호를 입력해주세요." size="30"/>
+			현재 비밀번호 : <input name="loginPwForCheck" type="password"
+				placeholder="현재 비밀번호를 입력해주세요." size="30" />
 		</div>
 		<div>
-			신규 비밀번호 : <input name="newLoginPw" type="password" placeholder="변경할 비밀번호를 입력해주세요."  size="30" />
+			신규 비밀번호 : <input name="newLoginPw" type="password"
+				placeholder="변경할 비밀번호를 입력해주세요." size="30" />
 		</div>
 
 		<div>

@@ -1,7 +1,7 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +11,10 @@
 <body>
 	<h1>메인페이지</h1>
 
-	<%@ include file="../part/topbar.jspf" %>
-	
+	<%@ include file="../part/topbar.jspf"%>
+
 	<a href="/MP/menu/member/join">회원가입</a>
 	<a href="/MP/menu/home/myInfo">내정보관리</a>
-	
+
 </body>
 </html>
